@@ -1,7 +1,7 @@
-#include "Figura.h"
-
-
+class Figura;
 class Plansza;
+enum class TypFigury;
+
 #pragma once
 struct Wektor {
 	int x;
@@ -65,7 +65,7 @@ struct Wektor {
 
 };
 
-
+#pragma once
 class Ruch
 {
 	Wektor ruchZ;
@@ -82,7 +82,14 @@ class Ruch
 
 public:
 
-	Ruch(Figura* _figura, Plansza* _plansza, int _z[2], int _do[2], bool _zbicie, bool _awans, bool _roszada, TypFigury _zbita = TypFigury::Brak);
-	Ruch(Figura* _figura, Plansza* _plansza, Wektor _z, Wektor _do, bool _zbicie, bool _awans, bool _specjalne, TypFigury _zbita = TypFigury::Brak);
-};
+	Ruch(Figura* _figura, Plansza* _plansza, int _z[2], int _do[2], bool _zbicie, bool _awans, bool _roszada, TypFigury _zbita);
+	Ruch(Figura* _figura, Plansza* _plansza, Wektor _z, Wektor _do, bool _zbicie, bool _awans, bool _specjalne, TypFigury _zbita);
 
+	bool GetZbicie() { return czyZbicie; }
+	bool GetAwans() { return czyAwans; }
+	bool GetSpecjalne() { return czySpecjalne; }
+	bool GetKolor() { return kolor; }
+	TypFigury GetZbita() { return zbitaFigura; }
+	Wektor GetZ() { return ruchZ; }
+	Wektor GetDo() { return ruchDo; }
+};

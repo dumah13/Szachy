@@ -18,6 +18,10 @@ inline void ToLower(char* _sNapis, int _dlugosc) {
 	}
 }
 
+template <typename T> int sgn(T val) {
+	return (T(0) < val) - (val < T(0));
+}
+
 //Zwraca losow¹ wartoœæ T spomiêdzy przedzia³ów _min a _max z dok³adnoœci¹ _iDok³adnoœæ miejsc po przecinku (je¿eli T jest liczb¹ rzeczywist¹) 
 template <typename T>
 T losowaPrzedzial(T _min, T _max, int _iDokladnosc = 2) {

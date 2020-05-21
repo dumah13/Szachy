@@ -1,5 +1,6 @@
 #include "Ruch.h"
 #include "Plansza.h"
+#include "Figura.h"
 
 Ruch::Ruch(Figura* _figura, Plansza* _plansza, int _z[2], int _do[2], bool _zbicie, bool _awans, bool _roszada, TypFigury _zbita) :
 	ruchZ{ _z[0], _z[1] },
@@ -24,5 +25,5 @@ Ruch::Ruch(Figura* _figura, Plansza* _plansza, Wektor _z, Wektor _do, bool _zbic
 	plansza(_plansza),
 	zbitaFigura(_zbita)
 {
-	kolor = (int)figura->GetTyp() >= 0 ? true : false;
+	kolor = (int)figura->GetTyp() >= 0 ? false : true;
 }

@@ -1,10 +1,12 @@
 #include <string>
+#include "Ruch.h"
 #include "Rysunek.h"
 
-class Ruch;
+class Plansza;
 
 using namespace std;
 
+#pragma once
 enum class TypFigury {
 	Brak = 0,
 
@@ -27,12 +29,12 @@ enum class TypFigury {
 	cKrol = -6,
 };
 
-#pragma once
 class Figura
 {
 private:
 	int iWysokoscFigury;
 	int iSzerokoscFigury;
+	int iPozycjaStartowa;
 	Rysunek rSymbol;
 	TypFigury iTypFigury;
 	vector<Ruch> mozliweRuchy;
@@ -41,12 +43,15 @@ public:
 	Figura();
 	Figura(TypFigury _iTyp, string _sSciezka);
 	
-	void sprawdzRuchy(int _pozycja[2], static Plansza& _plansza);
+	void sprawdzRuchy(int _pozycja[2], Plansza& _plansza);
 	void sprawdzWektoryRuchu();
 	void wczytajSymbol(string _sSciezka);
 	int GetWysokosc();
 	int GetSzerokosc();
+	int GetPozycjaStartowa();
+	void SetPozycjaStartowa(int _nowa);
 	TypFigury GetTyp();
+	vector<Ruch>& GetRuchy();
 	void Rysuj(Rysunek& _rPole);
 	
 	virtual void WykonajRuch() {};

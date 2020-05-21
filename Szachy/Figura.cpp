@@ -1,6 +1,7 @@
 #include "Figura.h"
 #include "Plansza.h"
 #include "Ruch.h"
+#include "DodatkoweFunkcje.h"
 #include <vector>
 #include <iostream>
 #include <fstream>
@@ -11,6 +12,7 @@ Figura::Figura():
 	wektoryRuchu {} 
 {
 	vector<string> svSymbol;
+	iPozycjaStartowa = 1;
 
 	svSymbol	= { 
 				 "",
@@ -32,6 +34,7 @@ Figura::Figura(TypFigury _iTyp, string _sSciezka):
 	mozliweRuchy{},
 	wektoryRuchu{} 
 {
+	iPozycjaStartowa = 1;
 	iTypFigury = _iTyp;
 	wczytajSymbol(_sSciezka);
 
@@ -48,7 +51,7 @@ void Figura::sprawdzWektoryRuchu() {
 	switch (typ) {
 	case 1:
 
-		wektor = { 0,(int)iTypFigury, false};
+		wektor = { (int)iTypFigury, 0, false};
 		wektoryRuchu.push_back(wektor);
 		break;
 
@@ -135,49 +138,133 @@ TypFigury Figura::GetTyp() {
 	return iTypFigury;
 }
 
-void Figura::sprawdzRuchy(int _pozycja[2], static Plansza& _plansza) {
+vector<Ruch>& Figura::GetRuchy() {
+	return mozliweRuchy;
+}
+
+void Figura::sprawdzRuchy(int _pozycja[2], Plansza& _plansza) {
 	int rozmiarPlanszy = Plansza::iWymiaryPlanszy;
 
 	for(int i = 0; i < wektoryRuchu.size(); i++)
 	{
 		Wektor wektor = wektoryRuchu[i];
-		Wektor ruchZ;
-		ruchZ.x = _pozycja[0];
-		ruchZ.y = _pozycja[1];
 
-		Wektor pozycja = ruchZ + wektor;
+		do
+		{
+			Wektor ruchZ;
+			ruchZ.x = _pozycja[0];
+			ruchZ.y = _pozycja[1];
+			bool niedozwolonyRuch = false;
+			Wektor pozycja = ruchZ + wektor;
 
-		if (pozycja.x < 0 || pozycja.x >= rozmiarPlanszy || pozycja.y < 0 || pozycja.y >= rozmiarPlanszy) {
-			continue;
-		}
+			//Wyjœcie poza planszê
+			if (pozycja.x < 0 || pozycja.x >= rozmiarPlanszy || pozycja.y < 0 || pozycja.y >= rozmiarPlanszy) {
+				break;
+			}
 
-		bool _promocja = false;
+			bool _promocja = false;
+			bool _roszada = false;
+			bool _zbicie = false;
+			TypFigury typZbitej = TypFigury::Brak;
 
-		if (pozycja.x == 0 || pozycja.x == rozmiarPlanszy - 1) {
-			_promocja = true;
-		}
+			Pole* docelowe = &_plansza[pozycja.x][pozycja.y];
+			Wektor ruchDo = pozycja;
 
-		bool _zbicie = false;
-		TypFigury typZbitej = TypFigury::Brak;
+			//Zbicie normalne
+			if (!docelowe->Puste()) 
+			{
+				if (sgn(docelowe->GetFigura().GetTyp()) == sgn(iTypFigury) || abs((int)iTypFigury) == (int)TypFigury::bPion) {
+					if (iPozycjaStartowa && docelowe->GetFigura().GetPozycjaStartowa() && abs((int)iTypFigury) == (int)TypFigury::bWieza && abs((int)docelowe->GetFigura().GetTyp()) == (int)TypFigury::bKrol) {
+						_roszada = true;
+					}
+					else {
+						niedozwolonyRuch = true;
+					}
+				}
+				else {
+					typZbitej = docelowe->GetFigura().GetTyp();
+					_zbicie = true;
+				}
+			}
+			
+			//Specjalne piona
+			if (iTypFigury == TypFigury::bPion || iTypFigury == TypFigury::cPion) {
+				int k = 1;
 
-		Pole* docelowe = &_plansza[pozycja.x][pozycja.y];
-		Wektor ruchDo = pozycja;
+				//Ostatni lub pierwszy wiersz - promocja
+				if (pozycja.x == 0 || pozycja.x == rozmiarPlanszy - 1) {
+					_promocja = true;
+				}
 
-		if (!docelowe->Puste) {
-			typZbitej = docelowe->GetFigura().GetTyp();
-			_zbicie = true;
-		}
+				//Handling double pusha piona
+				if (wektor.wersor) {
+					Ruch ruch2(this, &_plansza, ruchZ, ruchDo, _zbicie, _promocja, false, typZbitej);
+					mozliweRuchy.push_back(ruch2);
+					break;
+				}
 
-		if (iTypFigury == TypFigury::bPion) {
-			docelowe = &_plansza[pozycja.x + 1][pozycja.y];
-			if (!docelowe->Puste) {
-				ruchDo.x += 1;
-				typZbitej = docelowe->GetFigura().GetTyp();
-				_zbicie = true;
-				Ruch ruch(this, &_plansza, ruchZ, ruchDo, _zbicie, _promocja, false, typZbitej);
+				if (!niedozwolonyRuch)
+				{
+					Ruch ruch1(this, &_plansza, ruchZ, ruchDo, _zbicie, _promocja, false, typZbitej);
+					mozliweRuchy.push_back(ruch1);
+				}
+
+				int enPassant = 0;
+
+				//Bicie piona
+				for (int j = 0; j < 4; j++, k *= -1) {
+					if (_pozycja[1] + k < 0 || _pozycja[1] + k >= rozmiarPlanszy) {
+						continue;
+					}
+					docelowe = &_plansza[pozycja.x - enPassant][pozycja.y + k];
+					if (!docelowe->Puste() && sgn(docelowe->GetFigura().GetTyp()) != sgn(iTypFigury)) {
+						if (enPassant) {
+							if (docelowe->GetFigura().GetPozycjaStartowa() != 2) {
+								continue;
+							}
+						}
+						ruchDo.y = pozycja.y + k;
+						typZbitej = docelowe->GetFigura().GetTyp();
+						_zbicie = true;
+
+						Ruch ruch2(this, &_plansza, ruchZ, ruchDo, _zbicie, _promocja, true, typZbitej);
+						mozliweRuchy.push_back(ruch2);
+					}
+					if (j == 1) {
+						enPassant = 1;
+					}
+				}
+
+				//double push
+				if (iPozycjaStartowa) {
+					if (niedozwolonyRuch) {
+						break;
+					}
+					wektor *= 2;
+					wektor.wersor = true;
+					continue;
+				}
+
+				break;
+			}
+
+			if (!niedozwolonyRuch)
+			{
+				Ruch ruch(this, &_plansza, ruchZ, ruchDo, _zbicie, _promocja, _roszada, typZbitej);
 				mozliweRuchy.push_back(ruch);
 			}
-		}
+			else {
+				break;
+			}
+			if (!_zbicie && !_roszada)
+			{
+				wektor++;
+			}
+			else {
+				break;
+			}
+
+		} while (wektor.wersor);
 	}
 }
 
@@ -237,6 +324,14 @@ int Figura::GetWysokosc() {
 
 int Figura::GetSzerokosc() {
 	return iSzerokoscFigury;
+}
+
+int Figura::GetPozycjaStartowa() {
+	return iPozycjaStartowa;
+}
+
+void Figura::SetPozycjaStartowa(int _nowa) {
+	iPozycjaStartowa = _nowa;
 }
 
 void Figura::Rysuj(Rysunek& _rPole) {
