@@ -4,13 +4,20 @@
 #include "Pole.h"
 #include "Logger.h"
 #include <iostream>
-#include <SDL_mouse.h>
+#include <windows.h>
+#include "UIHandler.h"
 
 using namespace std;
 
-int main() {
+int main(int argc, char* argv[])
+{
 	try
 	{
+		int i = 0;
+
+		LPCWSTR tytul = L"Szachy :))))))))))))))";
+		SetConsoleTitle(tytul);
+
 		Rysunek rysunek;
 		rysunek.InitRysunek(5);
 		vector<string> obrazek = { "----------",
@@ -45,68 +52,51 @@ int main() {
 
 		Plansza plansza;
 
-		int x, y;
-		cin >> x;
-		
-		SDL_Window* window = SDL_GetMouseFocus();
-		SDL_GetGlobalMouseState(&x, &y);
-		//SDL_GetMouseState(&x, &y);
-		cout << x << endl << y;
-		int i;
-		cin >> i;
-		cout << endl;
-
 		plansza.RysujPlansze();
 		plansza[0][5].DodajMaske(warstwa);
-		plansza["A5"].DodajMaske(warstwa);
+		string str = "A5";
+		plansza[str].DodajMaske(warstwa);
 
 		figura1.wczytajSymbol("symbole.txt");
 		system("cls");
 
-		Figura figura2(TypFigury::cPion, "symbole.txt");
-		Figura figura3(TypFigury::bKrolowa, "symbole.txt");
-		Figura figura4(TypFigury::bKrolowa, "symbole.txt");
-		Figura figura5(TypFigury::cKrolowa, "symbole.txt");
-		Figura figura6(TypFigury::bWieza, "symbole.txt");
-		Figura figura7(TypFigury::cWieza, "symbole.txt");
+		Figura* figura2 = new Figura(TypFigury::cPion, "symbole.txt");
+		Figura* figura3 = new Figura(TypFigury::bKrolowa, "symbole.txt");
+		Figura* figura4 = new Figura(TypFigury::bKrolowa, "symbole.txt");
+		Figura* figura5 = new Figura(TypFigury::cKrol, "symbole.txt");
+		Figura* figura6 = new Figura(TypFigury::bWieza, "symbole.txt");
+		Figura* figura7 = new Figura(TypFigury::cKrolowa, "symbole.txt");
 
+		figura2->sprawdzWektoryRuchu();
+		figura7->sprawdzWektoryRuchu();
 
-
-		plansza[0][4].DodajFigure(figura2);
-		plansza[1][4].DodajFigure(figura3);
-		plansza[7][4].DodajFigure(figura4);
-		plansza[2][4].DodajFigure(figura4);
-		plansza[7][2].DodajFigure(figura5);
-		plansza[0][0].DodajFigure(figura6);
+		plansza[0][4].UstawFigure(*figura2);
+		plansza[1][4].UstawFigure(*figura3);
+		plansza[7][4].UstawFigure(*figura4);
+		plansza[7][2].UstawFigure(*figura5);
+		plansza[0][0].UstawFigure(*figura6);
 		plansza.RysujPlansze();
 
-		TypFigury ustawienie[8][8] = {
-			TypFigury::cWieza, TypFigury::cKon,TypFigury::cHetman,TypFigury::cKrolowa, TypFigury::cKrol,TypFigury::cHetman,TypFigury::cKon,TypFigury::cWieza,
-			TypFigury::cPion, TypFigury::cPion, TypFigury::cPion, TypFigury::cPion, TypFigury::cPion, TypFigury::cPion, TypFigury::cPion, TypFigury::cPion,
-			TypFigury::Brak, TypFigury::Brak, TypFigury::Brak, TypFigury::Brak,TypFigury::Brak,TypFigury::Brak,TypFigury::Brak,TypFigury::Brak,
-			TypFigury::Brak,TypFigury::Brak,TypFigury::Brak,TypFigury::Brak,TypFigury::Brak,TypFigury::Brak,TypFigury::Brak,TypFigury::Brak,
-			TypFigury::Brak,TypFigury::Brak,TypFigury::Brak,TypFigury::Brak,TypFigury::Brak,TypFigury::Brak,TypFigury::Brak,TypFigury::Brak,
-			TypFigury::Brak,TypFigury::Brak,TypFigury::Brak,TypFigury::Brak,TypFigury::Brak,TypFigury::Brak,TypFigury::Brak,TypFigury::Brak,
-			TypFigury::bPion, TypFigury::bPion, TypFigury::bPion, TypFigury::bPion, TypFigury::bPion, TypFigury::bPion, TypFigury::bPion, TypFigury::bPion,
-			TypFigury::bWieza, TypFigury::bKon,TypFigury::bHetman,TypFigury::bKrol,TypFigury::bKrolowa, TypFigury::bHetman,TypFigury::bKon,TypFigury::bWieza,
-		};
+
 
 		Plansza plansza2;
-		plansza2.wczytajUstawienie(ustawienie);
+		plansza2.wczytajUstawienie(ustawienieCzarneDol);
 
 		system("cls");
 		plansza2["D2"].DodajMaske(warstwa);
 		plansza2.RysujPlansze();
 
-		cin >> i;
 		system("cls");
 		plansza2["D2"].UsunMaske();
 		plansza2.RysujPlansze();
-#//figura1.Rysuj(plansza[0][4]);
+//figura1.Rysuj(plansza[0][4]);
 		defaultLogger.Log("aaaaaaaaabb");
 		defaultLogger.ZapiszLogi();
 
+		string temp = uiHandler.WyswietlZapytanie("Testowy komunikat ASDADADDAADADADSDS", 2, {25,10});
+
 	}
+
 	catch (const std::exception& e)
 	{
 		cout << e.what();
@@ -114,3 +104,4 @@ int main() {
 
 	return EXIT_SUCCESS;
 }
+

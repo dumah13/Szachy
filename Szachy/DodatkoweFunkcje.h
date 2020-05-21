@@ -1,4 +1,5 @@
 #include <iostream>
+#include <limits.h>
 #pragma once
 
 using namespace std;
@@ -30,7 +31,6 @@ T losowaPrzedzial(T _min, T _max, int _iDokladnosc = 2) {
 	int max;
 	int mnoznik = (int)pow(10, _iDokladnosc);
 	int wynik;
-
 	if (std::is_floating_point<T>::value) {
 		min = (int)((T)(mnoznik)* _min);
 		max = (int)((T)(mnoznik)* _max);
@@ -51,7 +51,7 @@ inline void czyscStrumienWejsciowy(istream& _is) {
 	if (_is.fail() == true) {
 		cout << "Blad strumienia wejsciowego. Nieprawidlowy typ danych.\n";
 		_is.clear();
-		_is.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		_is.ignore(INT_MAX, '\n');
 	}
 }
 

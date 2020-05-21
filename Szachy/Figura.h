@@ -1,6 +1,8 @@
 #include <string>
 #include "Rysunek.h"
 
+class Ruch;
+
 using namespace std;
 
 enum class TypFigury {
@@ -12,8 +14,8 @@ enum class TypFigury {
 	bKon = 2,
 	cKon =-2,
 
-	bHetman = 3,
-	cHetman = -3,
+	bGoniec = 3,
+	cGoniec = -3,
 
 	bWieza = 4,
 	cWieza = -4,
@@ -33,17 +35,21 @@ private:
 	int iSzerokoscFigury;
 	Rysunek rSymbol;
 	TypFigury iTypFigury;
+	vector<Ruch> mozliweRuchy;
+	vector<Wektor> wektoryRuchu;
 public:
 	Figura();
 	Figura(TypFigury _iTyp, string _sSciezka);
 	
+	void sprawdzRuchy(int _pozycja[2], static Plansza& _plansza);
+	void sprawdzWektoryRuchu();
 	void wczytajSymbol(string _sSciezka);
 	int GetWysokosc();
 	int GetSzerokosc();
 	TypFigury GetTyp();
 	void Rysuj(Rysunek& _rPole);
 	
-	virtual void Ruch() {};
+	virtual void WykonajRuch() {};
 	virtual void SprawdzRuch() {};
 };
 

@@ -3,7 +3,7 @@
 
 using namespace std;
 #pragma once
-static class Logger
+class Logger
 {
 private:
 	vector<string> vsLista;
@@ -13,5 +13,5 @@ public:
 	string GetOstatniLog();
 	vector<string> GetLogi();
 	void ZapiszLogi(string _sNazwaPliku = "\\logs\\log");
-}  defaultLogger;
+}  static defaultLogger;
 

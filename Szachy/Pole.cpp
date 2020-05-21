@@ -1,4 +1,5 @@
 #include "Pole.h"
+#include "Plansza.h"
 
 Pole::Pole() {
 	bPuste = true;
@@ -64,6 +65,10 @@ int Pole::GetSzerokosc() {
 	return iSzerokosc;
 }
 
+int Pole::GetIloscWarstw() {
+	return rSymbol.GetLiczbaWarstw();
+}
+
 int Pole::GetWysokosc() {
 	return iWysokosc;
 }
@@ -100,15 +105,17 @@ void Pole::UsunMaske() {
 	rSymbol.UsunWarstwe();
 }
 
-void Pole::UsunFigure() {
-	if (fFiguraNaPolu) {
-		delete fFiguraNaPolu;
-	}
+void Pole::ZdejmijFigure() {
+	fFiguraNaPolu = nullptr;
 	bPuste = true;
 	rSymbol.UsunWarstwe();
 }
 
-void Pole::DodajFigure(Figura& _fFigura) {
+void Pole::UstawFigure(Figura& _fFigura) {
+	if (bPuste == false) {
+		ZdejmijFigure();
+	}
+	bPuste = false;
 	SetFigura(_fFigura);
 	_fFigura.Rysuj(rSymbol);
 };

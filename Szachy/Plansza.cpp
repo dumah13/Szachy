@@ -2,7 +2,8 @@
 #include "DodatkoweFunkcje.h"
 #include <iostream>
 
-Plansza::Plansza() {
+Plansza::Plansza()
+{
 	iSzerokoscBuforu = paPlansza[0][0].GetSzerokosc();
 
 	for (int i = 0; i < iWymiaryPlanszy; i++)
@@ -73,7 +74,8 @@ void Plansza::wyczyscPlansze() {
 		for (int j = 0; j < iWymiaryPlanszy; j++)
 		{
 			if (!paPlansza[i][j].Puste()) {
-				paPlansza[i][j].UsunFigure();
+				delete (&paPlansza[i][j].GetFigura());
+				paPlansza[i][j].ZdejmijFigure();
 			}
 		}
 	}
@@ -145,7 +147,20 @@ Pole& Plansza::operator[](const char _sAdresPola[3]) {
 	return paPlansza[y][x];
 }
 
-void Plansza::wczytajUstawienie(TypFigury _tUstawienie[iWymiaryPlanszy][iWymiaryPlanszy]) {
+Pole& Plansza::operator[](string str) {
+	char adres[3] = {};
+
+	if (str.length() < 2) {
+		throw exception("Blad indeksatora planszy");
+	}
+
+	for (int i = 0; i < 3; i++) {
+		adres[i] = str[i];
+	}
+	return (*this)[adres];
+}
+
+void Plansza::wczytajUstawienie(const TypFigury _tUstawienie[iWymiaryPlanszy][iWymiaryPlanszy]) {
 	wyczyscPlansze();
 
 	for (int i = 0; i < iWymiaryPlanszy; i++)
@@ -155,7 +170,7 @@ void Plansza::wczytajUstawienie(TypFigury _tUstawienie[iWymiaryPlanszy][iWymiary
 			int indekserDlaUstawienia = iWymiaryPlanszy - i - 1;
 			if (_tUstawienie[indekserDlaUstawienia][j] != TypFigury::Brak) {
 				Figura* figura = new Figura(_tUstawienie[indekserDlaUstawienia][j], sSciezkaZasobow + "symbole.txt");
-				paPlansza[i][j].DodajFigure(*figura);
+				paPlansza[i][j].UstawFigure(*figura);
 			}
 		}
 	}
