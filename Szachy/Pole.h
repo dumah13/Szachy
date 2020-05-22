@@ -7,13 +7,14 @@ class Pole
 private:
 	bool bPuste;
 	int iSzerokosc;
-	int iKolor;
 	int iWysokosc;
+	int iKolor;
 	Rysunek rSymbol;
 	Figura* fFiguraNaPolu;
 
 public:
 	Pole();
+	~Pole();
 
 	Figura& GetFigura();
 	

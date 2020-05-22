@@ -69,7 +69,7 @@ int main(int argc, char* argv[])
 		figura2->sprawdzWektoryRuchu();
 		figura7->sprawdzWektoryRuchu();
 
-		plansza[3][4].UstawFigure(*figura2);
+		//plansza[3][4].UstawFigure(*figura2);
 		plansza[4][5].UstawFigure(*figura3);
 		plansza[4][3].UstawFigure(*figura4);
 		plansza[3][5].UstawFigure(*figura5);
@@ -83,6 +83,16 @@ int main(int argc, char* argv[])
 		}
 
 		plansza.RysujPlansze();
+		uiHandler.Init(plansza, true);
+
+		uiHandler.DodajWarstweUI(warstwa, 3, 4);
+		uiHandler.OdswiezPole(3, 4);
+		uiHandler.UsunWarsteUI(3, 4);
+		uiHandler.OdswiezPole(3, 4);
+		uiHandler.OdswiezPole("E4");
+		uiHandler.OdswiezPole("A1");
+		uiHandler.OdswiezPole("G8");
+		uiHandler.OdswiezPole("J2");
 
 		Plansza plansza2;
 		plansza2.wczytajUstawienie(ustawienieCzarneDol);

@@ -1,5 +1,6 @@
 #include "Rysunek.h"
 #include <vector>
+#include <Windows.h>
 #include <algorithm> 
 #include <iostream>
 
@@ -142,8 +143,16 @@ void Rysunek::Rysuj(int _iWarstwa) {
 	if (iIloscWarstw - _iWarstwa < 0 || iIloscWarstw - _iWarstwa > iIloscWarstw) {
 		throw exception("Blad! Podano nieistniejaca warstwe.", 2);
 	}
+	HANDLE wHnd = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_SCREEN_BUFFER_INFO bufferInfo;
+	COORD point;
+	GetConsoleScreenBufferInfo(wHnd, &bufferInfo);
+	point = bufferInfo.dwCursorPosition;
+
 	for(int i  = (iIloscWarstw - _iWarstwa)*iIloscWierszy; i < (iIloscWarstw+1)*iIloscWierszy; ++i)
 	{
 		cout << svRysunek[i] << endl;
+		point.Y++;
+		SetConsoleCursorPosition(wHnd, point);
 	}
 }

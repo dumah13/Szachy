@@ -34,7 +34,7 @@ class Figura
 private:
 	int iWysokoscFigury;
 	int iSzerokoscFigury;
-	int iPozycjaStartowa;
+	int iPozycjaStartowa = 1;
 	Rysunek rSymbol;
 	TypFigury iTypFigury;
 	vector<Ruch> mozliweRuchy;
@@ -42,7 +42,7 @@ private:
 public:
 	Figura();
 	Figura(TypFigury _iTyp, string _sSciezka);
-	
+
 	void sprawdzRuchy(int _pozycja[2], Plansza& _plansza);
 	void sprawdzWektoryRuchu();
 	void wczytajSymbol(string _sSciezka);

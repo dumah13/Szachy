@@ -12,6 +12,8 @@ public:
 private:
 	
 	int iSzerokoscBuforu;
+	int iSzerokoscPola;
+	int iWysokoscPola;
 	Pole paPlansza[iWymiaryPlanszy][iWymiaryPlanszy];
 
 	void RysujWiersz(int _iNrWiersza);
@@ -22,12 +24,14 @@ public:
 	void RysujPlansze();
 	void wyczyscPlansze();
 
+	int getSzerokoscPola() { return iSzerokoscPola; }
 	int getSzerokoscBuforu() { return iSzerokoscBuforu; }
+	int getWysokoscPola() { return iWysokoscPola; }
 
 	Pole* operator[](int _iIndex);
 	Pole& operator[](const char _sAdresPola[3]);
 	Pole& operator[](string str);
-	~Plansza();
+//	~Plansza();
 };
 
 const TypFigury ustawienieBialeDol[8][8] = {

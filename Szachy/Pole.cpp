@@ -23,6 +23,12 @@ Pole::Pole() {
 	return;
 }
 
+Pole::~Pole() {
+	if (fFiguraNaPolu) {
+		delete fFiguraNaPolu;
+	}
+}
+
 int Pole::GetKolor() {
 	return iKolor;
 }

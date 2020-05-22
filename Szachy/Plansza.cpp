@@ -5,6 +5,7 @@
 Plansza::Plansza()
 {
 	iSzerokoscBuforu = paPlansza[0][0].GetSzerokosc();
+	iSzerokoscPola = paPlansza[0][0].GetSzerokosc();
 
 	for (int i = 0; i < iWymiaryPlanszy; i++)
 	{
@@ -20,8 +21,8 @@ Plansza::Plansza()
 }
 
 void Plansza::RysujWiersz(int _iNrWiersza) {
-	int wysokosc = paPlansza[0][0].GetWysokosc();
-	Rysunek rWiersz(wysokosc);
+	iWysokoscPola = paPlansza[0][0].GetWysokosc();
+	Rysunek rWiersz(iWysokoscPola);
 	
 	string bufor = "";
 	vector<string> rBufor;
@@ -30,8 +31,8 @@ void Plansza::RysujWiersz(int _iNrWiersza) {
 		bufor.push_back(' ');
 	}
 
-	for (int i = 0; i < wysokosc; i++) {
-		if ((i + wysokosc / 2 + 1) % wysokosc == 0) {
+	for (int i = 0; i < iWysokoscPola; i++) {
+		if ((i + iWysokoscPola / 2 + 1) % iWysokoscPola == 0) {
 			int symbol = '1' + _iNrWiersza;
 			if (symbol > '9') {
 				char dziesiatki= '0';
@@ -176,7 +177,7 @@ void Plansza::wczytajUstawienie(const TypFigury _tUstawienie[iWymiaryPlanszy][iW
 	}
 }
 
-Plansza::~Plansza() {
+/*Plansza::~Plansza() {
 	wyczyscPlansze();
 	return;
-}
+}*/

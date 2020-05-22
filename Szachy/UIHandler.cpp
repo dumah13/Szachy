@@ -6,29 +6,66 @@ using namespace std;
 
 int UIHandler::DodajWarstweUI(Rysunek& _rWarstwa, string _indeksPola)
 {
+	if (pAktualnaPlansza == nullptr) {
+		throw exception("Blad! Brak planszy.");
+	}
+
 	(*pAktualnaPlansza)[_indeksPola].DodajMaske(_rWarstwa);
 	return (*pAktualnaPlansza)[_indeksPola].GetIloscWarstw();
 }
 
+int UIHandler::DodajWarstweUI(Rysunek& _rWarstwa, int _ix, int _iy) {
+	if (pAktualnaPlansza == nullptr) {
+		throw exception("Blad! Brak planszy.");
+	}
+
+	(*pAktualnaPlansza)[_ix][_iy].DodajMaske(_rWarstwa);
+	return (*pAktualnaPlansza)[_ix][_iy].GetIloscWarstw();
+}
 
 int UIHandler::DodajWarstweUI(vector<string>& _vsWarstwa, string _indeksPola)
 {
+	if (pAktualnaPlansza == nullptr) {
+		throw exception("Blad! Brak planszy.");
+	}
+
 	(*pAktualnaPlansza)[_indeksPola].DodajMaske(_vsWarstwa);
 	return (*pAktualnaPlansza)[_indeksPola].GetIloscWarstw();
 }
 
-
-bool UIHandler::UsunWarsteUI(string _indeksPola)
+int UIHandler::DodajWarstweUI(vector<string>& _vsWarstwa, int _ix, int _iy)
 {
+	if (pAktualnaPlansza == nullptr) {
+		throw exception("Blad! Brak planszy.");
+	}
+
+	(*pAktualnaPlansza)[_ix][_iy].DodajMaske(_vsWarstwa);
+	return (*pAktualnaPlansza)[_ix][_iy].GetIloscWarstw();
+}
+
+void UIHandler::UsunWarsteUI(string _indeksPola)
+{
+	if (pAktualnaPlansza == nullptr) {
+		throw exception("Blad! Brak planszy.");
+	}
+
 	int iloscWarstw = (*pAktualnaPlansza)[_indeksPola].GetIloscWarstw();
 
-	if (iloscWarstw < 2) {
-		return false;
+	if (iloscWarstw < 1 || iloscWarstw < 2 && !(*pAktualnaPlansza)[_indeksPola].Puste()) {
+		throw exception("Blad! Pole nie posiada warstwy UI.");
 	}
 
 	(*pAktualnaPlansza)[_indeksPola].UsunMaske();
 
-	return true;
+}
+
+void UIHandler::UsunWarsteUI(int _ix, int _iy) {
+	char pierwsza = '1' + _ix;
+	char druga = 'a' + _iy;
+
+	string indeks = { druga, pierwsza };
+
+	UsunWarsteUI(indeks);
 }
 
 
@@ -41,6 +78,56 @@ Plansza* UIHandler::GetPlansza()
 void UIHandler::SetPlansza(Plansza* _pPlansza)
 {
 	pAktualnaPlansza = _pPlansza;
+}
+
+void UIHandler::OdswiezPole(int _ix, int _iy) {
+	if (pAktualnaPlansza == nullptr) {
+		throw exception("Blad! Brak planszy.");
+	}
+
+	try
+	{
+		CONSOLE_SCREEN_BUFFER_INFO bufferInfo;
+		GetConsoleScreenBufferInfo(wHnd, &bufferInfo);
+
+		COORD staraPozycja = bufferInfo.dwCursorPosition;;
+		COORD pozycjaKursora = { _iy * pAktualnaPlansza->getSzerokoscPola() + pAktualnaPlansza->getSzerokoscBuforu(), 4 + (Plansza::iWymiaryPlanszy - _ix - 1) * pAktualnaPlansza->getWysokoscPola() };
+		SetConsoleCursorPosition(wHnd, pozycjaKursora);
+
+		(*pAktualnaPlansza)[_ix][_iy].Rysuj();
+
+		SetConsoleCursorPosition(wHnd, staraPozycja);
+	}
+	catch (const std::exception& e)
+	{
+		OdswiezPlansze();
+	}
+}
+
+void UIHandler::OdswiezPole(string _sPole) {
+		ToLower(_sPole);
+		int y = _sPole[0] - 'a';
+		int x = _sPole[1] - '1';
+
+		OdswiezPole(x, y);
+		
+}
+
+void UIHandler::OdswiezPlansze() {
+	if (pAktualnaPlansza == nullptr) {
+		throw exception("Blad! Brak planszy.");
+	}
+
+	CONSOLE_SCREEN_BUFFER_INFO bufferInfo;
+	GetConsoleScreenBufferInfo(wHnd, &bufferInfo);
+
+	COORD staraPozycja = bufferInfo.dwCursorPosition;;
+
+	SetConsoleCursorPosition(wHnd, {0,0});
+
+	pAktualnaPlansza->RysujPlansze();
+
+	SetConsoleCursorPosition(wHnd, staraPozycja);
 }
 
 
