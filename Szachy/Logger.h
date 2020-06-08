@@ -6,8 +6,8 @@ using namespace std;
 class Logger
 {
 private:
-	vector<string> vsLista;
-	int iterator = 0;
+	static vector<string> vsLista;
+	static int iterator;
 public:
 	void Log(string _sWiadomosc);
 	string GetOstatniLog();

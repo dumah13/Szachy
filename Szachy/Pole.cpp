@@ -83,15 +83,15 @@ bool Pole::Puste() {
 	return bPuste;
 }
 
-Figura& Pole::GetFigura() {
+Figura* Pole::GetFigura() {
 	if (!fFiguraNaPolu) {
 		throw exception("Blad! Brak figury na polu.", 1);
 	}
-	return *fFiguraNaPolu;
+	return fFiguraNaPolu;
 }
 
-void Pole::SetFigura(Figura& _fFigura) {
-	fFiguraNaPolu = &_fFigura;
+void Pole::SetFigura(Figura* _fFigura) {
+	fFiguraNaPolu = _fFigura;
 }
 
 void Pole::Rysuj(Rysunek& _rRysunek) {
@@ -111,6 +111,14 @@ void Pole::UsunMaske() {
 	rSymbol.UsunWarstwe();
 }
 
+void Pole::UsunFigure() {
+	if (fFiguraNaPolu)
+	{
+		delete fFiguraNaPolu;
+	}
+	ZdejmijFigure();
+}
+
 void Pole::ZdejmijFigure() {
 	fFiguraNaPolu = nullptr;
 	bPuste = true;
@@ -119,12 +127,22 @@ void Pole::ZdejmijFigure() {
 
 void Pole::UstawFigure(Figura& _fFigura) {
 	if (bPuste == false) {
-		ZdejmijFigure();
+		UsunFigure();
 	}
 	bPuste = false;
-	SetFigura(_fFigura);
-	_fFigura.Rysuj(rSymbol);
+	Figura* figura = new Figura(_fFigura);
+	SetFigura(figura);
+	figura->Rysuj(rSymbol);
 };
+
+void Pole::UstawFigure(Figura* _pFigura) {
+	if (bPuste == false) {
+		UsunFigure();
+	}
+	bPuste = false;
+	SetFigura(_pFigura);
+	_pFigura->Rysuj(rSymbol);
+}
 
 void Pole::Rysuj() {
 

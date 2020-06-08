@@ -4,6 +4,7 @@
 
 Plansza::Plansza()
 {
+	iWysokoscPola = 0;
 	iSzerokoscBuforu = paPlansza[0][0].GetSzerokosc();
 	iSzerokoscPola = paPlansza[0][0].GetSzerokosc();
 
@@ -75,8 +76,7 @@ void Plansza::wyczyscPlansze() {
 		for (int j = 0; j < iWymiaryPlanszy; j++)
 		{
 			if (!paPlansza[i][j].Puste()) {
-				delete (&paPlansza[i][j].GetFigura());
-				paPlansza[i][j].ZdejmijFigure();
+				paPlansza[i][j].UsunFigure();
 			}
 		}
 	}
@@ -119,7 +119,7 @@ void Plansza::RysujPlansze() {
 Pole* Plansza::operator[](int index) {
 
 	if (index > iWymiaryPlanszy || index < 0) {
-		throw exception("Blad! Indeks poza tablica.", 1);
+		throw exception("Blad! Dane pole nie istnieje.", 1);
 	}
 
 	return paPlansza[index];
@@ -142,7 +142,7 @@ Pole& Plansza::operator[](const char _sAdresPola[3]) {
 	}
 
 	if (x >= iWymiaryPlanszy || x < 0 || y >= iWymiaryPlanszy || y < 0) {
-		throw exception("Blad! Indeks poza tablica.", 1);
+		throw exception("Blad! Dane pole nie istnieje.", 1);
 	}
 
 	return paPlansza[y][x];
@@ -151,13 +151,15 @@ Pole& Plansza::operator[](const char _sAdresPola[3]) {
 Pole& Plansza::operator[](string str) {
 	char adres[3] = {};
 
-	if (str.length() < 2) {
-		throw exception("Blad indeksatora planszy");
+	if (str.length() != 2) {
+		throw exception("Indeks pola jest nieprawidlowy. Prawidlowy format: 'B6'.");
 	}
 
-	for (int i = 0; i < 3; i++) {
+	for (int i = 0; i < 2; i++) {
 		adres[i] = str[i];
 	}
+	adres[2] = '\0';
+
 	return (*this)[adres];
 }
 
@@ -170,8 +172,8 @@ void Plansza::wczytajUstawienie(const TypFigury _tUstawienie[iWymiaryPlanszy][iW
 		{
 			int indekserDlaUstawienia = iWymiaryPlanszy - i - 1;
 			if (_tUstawienie[indekserDlaUstawienia][j] != TypFigury::Brak) {
-				Figura* figura = new Figura(_tUstawienie[indekserDlaUstawienia][j], sSciezkaZasobow + "symbole.txt");
-				paPlansza[i][j].UstawFigure(*figura);
+				Figura figura(_tUstawienie[indekserDlaUstawienia][j], sSciezkaZasobow + "symbole.txt");
+				paPlansza[i][j].UstawFigure(figura);
 			}
 		}
 	}

@@ -38,6 +38,7 @@ Figura::Figura(TypFigury _iTyp, string _sSciezka):
 	iTypFigury = _iTyp;
 	wczytajSymbol(_sSciezka);
 
+	sprawdzWektoryRuchu();
 	return;
 }
 
@@ -145,6 +146,8 @@ vector<Ruch>& Figura::GetRuchy() {
 void Figura::sprawdzRuchy(int _pozycja[2], Plansza& _plansza) {
 	int rozmiarPlanszy = Plansza::iWymiaryPlanszy;
 
+	mozliweRuchy.clear();
+
 	for(int i = 0; i < wektoryRuchu.size(); i++)
 	{
 		Wektor wektor = wektoryRuchu[i];
@@ -173,8 +176,8 @@ void Figura::sprawdzRuchy(int _pozycja[2], Plansza& _plansza) {
 			//Zbicie normalne
 			if (!docelowe->Puste()) 
 			{
-				if (sgn(docelowe->GetFigura().GetTyp()) == sgn(iTypFigury) || abs((int)iTypFigury) == (int)TypFigury::bPion) {
-					if (iPozycjaStartowa && docelowe->GetFigura().GetPozycjaStartowa() && abs((int)iTypFigury) == (int)TypFigury::bWieza && abs((int)docelowe->GetFigura().GetTyp()) == (int)TypFigury::bKrol) {
+				if (sgn(docelowe->GetFigura()->GetTyp()) == sgn(iTypFigury) || abs((int)iTypFigury) == (int)TypFigury::bPion) {
+					if (iPozycjaStartowa && docelowe->GetFigura()->GetPozycjaStartowa() && abs((int)iTypFigury) == (int)TypFigury::bWieza && abs((int)docelowe->GetFigura()->GetTyp()) == (int)TypFigury::bKrol && docelowe->GetFigura()->GetPozycjaStartowa()) {
 						_roszada = true;
 					}
 					else {
@@ -182,7 +185,7 @@ void Figura::sprawdzRuchy(int _pozycja[2], Plansza& _plansza) {
 					}
 				}
 				else {
-					typZbitej = docelowe->GetFigura().GetTyp();
+					typZbitej = docelowe->GetFigura()->GetTyp();
 					_zbicie = true;
 				}
 			}
@@ -198,7 +201,7 @@ void Figura::sprawdzRuchy(int _pozycja[2], Plansza& _plansza) {
 
 				//Handling double pusha piona
 				if (wektor.wersor) {
-					Ruch ruch2(this, &_plansza, ruchZ, ruchDo, _zbicie, _promocja, false, typZbitej);
+					Ruch ruch2(this, &_plansza, ruchZ, ruchDo, _zbicie, _promocja, true, typZbitej);
 					mozliweRuchy.push_back(ruch2);
 					break;
 				}
@@ -212,26 +215,35 @@ void Figura::sprawdzRuchy(int _pozycja[2], Plansza& _plansza) {
 				int enPassant = 0;
 
 				//Bicie piona
-				for (int j = 0; j < 4; j++, k *= -1) {
-					if (_pozycja[1] + k < 0 || _pozycja[1] + k >= rozmiarPlanszy) {
-						continue;
-					}
-					docelowe = &_plansza[pozycja.x - enPassant][pozycja.y + k];
-					if (!docelowe->Puste() && sgn(docelowe->GetFigura().GetTyp()) != sgn(iTypFigury)) {
-						if (enPassant) {
-							if (docelowe->GetFigura().GetPozycjaStartowa() != 2) {
-								continue;
-							}
+				for (int k = 0; k < 2; k++)
+				{
+					for (int j = -1; j < 2; j++) {
+						if (_pozycja[1] + j < 0 || _pozycja[1] + j >= rozmiarPlanszy || j == 0) {
+							continue;
 						}
-						ruchDo.y = pozycja.y + k;
-						typZbitej = docelowe->GetFigura().GetTyp();
-						_zbicie = true;
+						int x = pozycja.x;
+						int y = pozycja.y + j;
 
-						Ruch ruch2(this, &_plansza, ruchZ, ruchDo, _zbicie, _promocja, true, typZbitej);
-						mozliweRuchy.push_back(ruch2);
-					}
-					if (j == 1) {
-						enPassant = 1;
+						if (k == 1) {
+							enPassant = 1;
+							x -= sgn(iTypFigury);
+						}
+
+						docelowe = &_plansza[x][y];
+						if (!docelowe->Puste() && (sgn(docelowe->GetFigura()->GetTyp()) != sgn(iTypFigury))) {
+							if (enPassant) {
+								if (docelowe->GetFigura()->GetPozycjaStartowa() != 2) {
+									continue;
+								}
+							}
+							ruchDo.y = y;
+							typZbitej = docelowe->GetFigura()->GetTyp();
+							_zbicie = true;
+
+							Ruch ruch2(this, &_plansza, ruchZ, ruchDo, _zbicie, _promocja, enPassant, typZbitej);
+							mozliweRuchy.push_back(ruch2);
+						}
+
 					}
 				}
 

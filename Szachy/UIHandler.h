@@ -2,22 +2,24 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <windows.h>
+
+#define CZYSCLINIE "\33[2K\r"
+
 #pragma once
-
-
-
 class UIHandler
 {
 
 public:
 	const static int WielkoscBuforaOkna = 5;
 	const static int MaxDlugoscLiniiOkna = 40;
+	
 private:
-	HANDLE wHnd = GetStdHandle(STD_OUTPUT_HANDLE);
-	HANDLE rHnd = GetStdHandle(STD_INPUT_HANDLE);
-	Plansza* pAktualnaPlansza = nullptr;
-	COORD consoleSize;
-	PCOORD pConsoleSize = &consoleSize;
+	static HANDLE wHnd;
+	static HANDLE rHnd;
+	
+	static Plansza* pAktualnaPlansza;
+	static COORD consoleSize;
+	static PCOORD pConsoleSize;
 public:
 	Plansza* GetPlansza();
 	void SetPlansza(Plansza* _pPlansza);
@@ -30,8 +32,9 @@ public:
 	void OdswiezPole(string Pole);
 	void OdswiezPole(int _ix, int _iy);
 	void OdswiezPlansze();
+	void PrzesunKursor(int _ix, int _iy);
 	string WyswietlZapytanie(string _komunikat, int _iloscZnakow, COORD _punktWyswietlenia = { -1,-1 }, bool _centrum = false);
 	SHORT* WyswietlOkno(string _komunikat, COORD _pozycja, bool _centrum = false);
-	int Init(Plansza& _plansza, bool _fullscreen);
+	static int Init(Plansza* _plansza, bool _fullscreen);
 } static uiHandler;
 

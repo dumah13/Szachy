@@ -1,6 +1,10 @@
+#include <string>
+
 class Figura;
 class Plansza;
 enum class TypFigury;
+
+using namespace std;
 
 #pragma once
 struct Wektor {
@@ -77,6 +81,7 @@ class Ruch
 	bool czySpecjalne;
 	Plansza* plansza;
 	Figura* figura;
+	TypFigury typFigury;
 	TypFigury zbitaFigura;
 	bool kolor; //0 - biale, 1 - czarne
 
@@ -89,7 +94,11 @@ public:
 	bool GetAwans() { return czyAwans; }
 	bool GetSpecjalne() { return czySpecjalne; }
 	bool GetKolor() { return kolor; }
+	TypFigury GetTypFigury() { return typFigury; }
 	TypFigury GetZbita() { return zbitaFigura; }
 	Wektor GetZ() { return ruchZ; }
 	Wektor GetDo() { return ruchDo; }
+
+	bool operator==(string _indeksDo);
+	bool operator==(int _pos[2]);
 };

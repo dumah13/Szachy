@@ -4,10 +4,16 @@
 
 using namespace std;
 
+Plansza* UIHandler:: pAktualnaPlansza = nullptr;
+COORD UIHandler::consoleSize;
+PCOORD UIHandler::pConsoleSize = &consoleSize;
+HANDLE UIHandler::wHnd = GetStdHandle(STD_OUTPUT_HANDLE);
+HANDLE UIHandler::rHnd = GetStdHandle(STD_INPUT_HANDLE);
+
 int UIHandler::DodajWarstweUI(Rysunek& _rWarstwa, string _indeksPola)
 {
 	if (pAktualnaPlansza == nullptr) {
-		throw exception("Blad! Brak planszy.");
+		throw exception("Blad! Brak planszy dla UIHandlera.");
 	}
 
 	(*pAktualnaPlansza)[_indeksPola].DodajMaske(_rWarstwa);
@@ -16,7 +22,7 @@ int UIHandler::DodajWarstweUI(Rysunek& _rWarstwa, string _indeksPola)
 
 int UIHandler::DodajWarstweUI(Rysunek& _rWarstwa, int _ix, int _iy) {
 	if (pAktualnaPlansza == nullptr) {
-		throw exception("Blad! Brak planszy.");
+		throw exception("Blad! Brak planszy dla UIHandlera.");
 	}
 
 	(*pAktualnaPlansza)[_ix][_iy].DodajMaske(_rWarstwa);
@@ -26,7 +32,7 @@ int UIHandler::DodajWarstweUI(Rysunek& _rWarstwa, int _ix, int _iy) {
 int UIHandler::DodajWarstweUI(vector<string>& _vsWarstwa, string _indeksPola)
 {
 	if (pAktualnaPlansza == nullptr) {
-		throw exception("Blad! Brak planszy.");
+		throw exception("Blad! Brak planszy dla UIHandlera.");
 	}
 
 	(*pAktualnaPlansza)[_indeksPola].DodajMaske(_vsWarstwa);
@@ -36,7 +42,7 @@ int UIHandler::DodajWarstweUI(vector<string>& _vsWarstwa, string _indeksPola)
 int UIHandler::DodajWarstweUI(vector<string>& _vsWarstwa, int _ix, int _iy)
 {
 	if (pAktualnaPlansza == nullptr) {
-		throw exception("Blad! Brak planszy.");
+		throw exception("Blad! Brak planszy dla UIHandlera.");
 	}
 
 	(*pAktualnaPlansza)[_ix][_iy].DodajMaske(_vsWarstwa);
@@ -46,12 +52,12 @@ int UIHandler::DodajWarstweUI(vector<string>& _vsWarstwa, int _ix, int _iy)
 void UIHandler::UsunWarsteUI(string _indeksPola)
 {
 	if (pAktualnaPlansza == nullptr) {
-		throw exception("Blad! Brak planszy.");
+		throw exception("Blad! Brak planszy dla UIHandlera.");
 	}
 
 	int iloscWarstw = (*pAktualnaPlansza)[_indeksPola].GetIloscWarstw();
 
-	if (iloscWarstw < 1 || iloscWarstw < 2 && !(*pAktualnaPlansza)[_indeksPola].Puste()) {
+	if (iloscWarstw < 1 || (iloscWarstw < 2 && !(*pAktualnaPlansza)[_indeksPola].Puste())) {
 		throw exception("Blad! Pole nie posiada warstwy UI.");
 	}
 
@@ -80,9 +86,9 @@ void UIHandler::SetPlansza(Plansza* _pPlansza)
 	pAktualnaPlansza = _pPlansza;
 }
 
-void UIHandler::OdswiezPole(int _ix, int _iy) {
+void UIHandler::OdswiezPole(int _iy, int _ix) {
 	if (pAktualnaPlansza == nullptr) {
-		throw exception("Blad! Brak planszy.");
+		throw exception("Blad! Brak planszy dla UIHandlera.");
 	}
 
 	try
@@ -91,10 +97,10 @@ void UIHandler::OdswiezPole(int _ix, int _iy) {
 		GetConsoleScreenBufferInfo(wHnd, &bufferInfo);
 
 		COORD staraPozycja = bufferInfo.dwCursorPosition;;
-		COORD pozycjaKursora = { _iy * pAktualnaPlansza->getSzerokoscPola() + pAktualnaPlansza->getSzerokoscBuforu(), 4 + (Plansza::iWymiaryPlanszy - _ix - 1) * pAktualnaPlansza->getWysokoscPola() };
+		COORD pozycjaKursora = { _ix * pAktualnaPlansza->getSzerokoscPola() + pAktualnaPlansza->getSzerokoscBuforu(), 4 + (Plansza::iWymiaryPlanszy - _iy - 1) * pAktualnaPlansza->getWysokoscPola() };
 		SetConsoleCursorPosition(wHnd, pozycjaKursora);
 
-		(*pAktualnaPlansza)[_ix][_iy].Rysuj();
+		(*pAktualnaPlansza)[_iy][_ix].Rysuj();
 
 		SetConsoleCursorPosition(wHnd, staraPozycja);
 	}
@@ -161,6 +167,17 @@ string UIHandler::WyswietlZapytanie(string _komunikat, int _iloscZnakow, COORD _
 	return string();
 }
 
+void UIHandler::PrzesunKursor(int _ix, int _iy) {
+	CONSOLE_SCREEN_BUFFER_INFO bufferInfo;
+	COORD point;
+	GetConsoleScreenBufferInfo(wHnd, &bufferInfo);
+	point = bufferInfo.dwCursorPosition;
+
+	point.X += _ix;
+	point.Y += _iy;
+
+	SetConsoleCursorPosition(wHnd, point);
+}
 
 SHORT* UIHandler::WyswietlOkno(string _komunikat, COORD _pozycja, bool _centrum)
 {
@@ -216,9 +233,9 @@ SHORT* UIHandler::WyswietlOkno(string _komunikat, COORD _pozycja, bool _centrum)
 }
 
 
-int UIHandler::Init(Plansza& _plansza, bool _fullscreen)
+int UIHandler::Init(Plansza* _plansza, bool _fullscreen)
 {
-	pAktualnaPlansza = &_plansza;
+	UIHandler::pAktualnaPlansza = _plansza;
 
 	if (_fullscreen) {
 		SetConsoleDisplayMode(wHnd, CONSOLE_FULLSCREEN_MODE, pConsoleSize);

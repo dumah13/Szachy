@@ -3,6 +3,8 @@
 #include "Plansza.h"
 #include "Pole.h"
 #include "Logger.h"
+#include "Gracz.h"
+#include "HandlerGry.h"
 #include <iostream>
 #include <windows.h>
 #include "UIHandler.h"
@@ -13,6 +15,7 @@ int main(int argc, char* argv[])
 {
 	try
 	{
+
 
 		LPCWSTR tytul = L"Szachy :))))))))))))))";
 		SetConsoleTitle(tytul);
@@ -49,9 +52,9 @@ int main(int argc, char* argv[])
 
 		Figura figura1;
 
-		Plansza plansza;
+		Plansza* plansza = new Plansza();
 
-		plansza.RysujPlansze();
+		plansza->RysujPlansze();
 		//plansza[0][5].DodajMaske(warstwa);
 		string str = "A5";
 		//plansza[str].DodajMaske(warstwa);
@@ -59,43 +62,63 @@ int main(int argc, char* argv[])
 		figura1.wczytajSymbol("symbole.txt");
 		system("cls");
 
-		Figura* figura2 = new Figura(TypFigury::bPion, "symbole.txt");
-		Figura* figura3 = new Figura(TypFigury::bKrolowa, "symbole.txt");
-		Figura* figura4 = new Figura(TypFigury::cPion, "symbole.txt");
-		Figura* figura5 = new Figura(TypFigury::bKrol, "symbole.txt");
-		Figura* figura6 = new Figura(TypFigury::bWieza, "symbole.txt");
-		Figura* figura7 = new Figura(TypFigury::cKrolowa, "symbole.txt");
+		Figura figura2(TypFigury::bPion, "symbole.txt");
+		Figura figura3(TypFigury::bPion, "symbole.txt");
+		Figura figura4(TypFigury::cKon, "symbole.txt");
+		Figura figura5(TypFigury::bKrol, "symbole.txt");
+		Figura figura6(TypFigury::bWieza, "symbole.txt");
+		Figura figura7(TypFigury::cKrolowa, "symbole.txt");
 
-		figura2->sprawdzWektoryRuchu();
-		figura7->sprawdzWektoryRuchu();
+		HandlerGry handlerGry(0,plansza);
 
-		//plansza[3][4].UstawFigure(*figura2);
-		plansza[4][5].UstawFigure(*figura3);
-		plansza[4][3].UstawFigure(*figura4);
-		plansza[3][5].UstawFigure(*figura5);
-		plansza[0][0].UstawFigure(*figura6);
-
+		figura2.sprawdzWektoryRuchu();
+		figura7.sprawdzWektoryRuchu();
 		int tab[2] = { 3, 4 };
 
-		figura2->sprawdzRuchy(tab, plansza);
-		for (int i = 0; i < figura2->GetRuchy().size(); i++) {
-			plansza[figura2->GetRuchy()[i].GetDo().x][figura2->GetRuchy()[i].GetDo().y].DodajMaske(warstwa);
+		figura2.sprawdzRuchy(tab, *plansza);
+		for (int i = 0; i < figura2.GetRuchy().size(); i++) {
+			//(*plansza)[figura2.GetRuchy()[i].GetDo().x][figura2.GetRuchy()[i].GetDo().y].DodajMaske(warstwa);
 		}
 
-		plansza.RysujPlansze();
-		uiHandler.Init(plansza, true);
 
-		uiHandler.DodajWarstweUI(warstwa, 3, 4);
+		int tab2[2] = { 0, 0 };
+
+
+		figura6.sprawdzRuchy(tab2, *plansza);
+		//plansza[3][4].UstawFigure(*figura2);
+		(*plansza)[5][3].UstawFigure(figura3);
+		(*plansza)[6][5].UstawFigure(figura4);
+		(*plansza)[0][3].UstawFigure(figura6);
+
+
+		Gracz graczTest(plansza, 0);
+
+		/*for (size_t i = 0; i < 1;)
+		{
+			(*plansza)[tab2[0]][tab2[1]].GetFigura()->sprawdzRuchy(tab2, *plansza);
+			Wektor nowa = handlerGry.WykonajRuch(handlerGry.GetGracz(0)->WybierzRuch());
+			tab2[0] = nowa.x;
+			tab2[1] = nowa.y;
+		}*/
+
+		/*uiHandler.DodajWarstweUI(warstwa, 3, 4);
 		uiHandler.OdswiezPole(3, 4);
 		uiHandler.UsunWarsteUI(3, 4);
 		uiHandler.OdswiezPole(3, 4);
 		uiHandler.OdswiezPole("E4");
 		uiHandler.OdswiezPole("A1");
 		uiHandler.OdswiezPole("G8");
-		uiHandler.OdswiezPole("J2");
-
+		//uiHandler.OdswiezPole("J2");
+		//return 0;
+		*/
 		Plansza plansza2;
-		plansza2.wczytajUstawienie(ustawienieCzarneDol);
+		plansza2.wczytajUstawienie(ustawienieBialeDol);
+
+		handlerGry.InicjalizujGre(0);
+
+		while (true) {
+			handlerGry.WykonajTure();
+		}
 
 		system("cls");
 		plansza2["D2"].DodajMaske(warstwa);

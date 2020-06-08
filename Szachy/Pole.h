@@ -16,15 +16,16 @@ public:
 	Pole();
 	~Pole();
 
-	Figura& GetFigura();
+	Figura* GetFigura();
 	
 	int GetSzerokosc();
 	int GetIloscWarstw();
 	int GetWysokosc();
 	int GetKolor();
-	void SetFigura(Figura& _fFigura);
+	void SetFigura(Figura* _fFigura);
 	bool Puste();
 		
+	void UsunFigure();
 	void ZdejmijFigure();
 	void Rysuj(Rysunek& _rRysunek);
 	void Rysuj();
@@ -32,5 +33,6 @@ public:
 	void DodajMaske(Rysunek _rMaska);
 	void UsunMaske();
 	void UstawFigure(Figura& _fFigura);
+	void UstawFigure(Figura* _pFigura);
 	void ZmienKolor();
 };

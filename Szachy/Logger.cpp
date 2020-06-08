@@ -6,6 +6,9 @@
 
 using namespace std;
 
+int Logger::iterator = 0;
+vector<string> Logger::vsLista = {};
+
 void Logger::Log(string _sWiadomosc) {
 	string bufor = ":   ";
 	string log = to_string(++iterator) + bufor + _sWiadomosc;
