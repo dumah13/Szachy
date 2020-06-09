@@ -1,6 +1,7 @@
 #include "Gracz.h"
 #include "DodatkoweFunkcje.h"
 #include "UIHandler.h"
+#include <sstream>
 
 vector<string> Warstwa1 =
 { ".\\........./.",
@@ -44,8 +45,13 @@ Ruch* Gracz::WybierzRuch()
 		try
 		{
 			cout << "Ktora figure chcesz ruszyc? Wpisz pole (np. A3)." << endl;
-			indeksPola = wczytajWartosc<string>(cin);
-			cin.ignore(1,'\0');
+			wyswietlonoUI = false;
+			stringstream ss;
+			ss = wczytajWartosc<stringstream>(cin);
+			string indeksPolaDo = "";
+
+			indeksPola = wczytajWartosc<string>(ss);
+			indeksPolaDo = wczytajWartosc<string>(ss);
 
 			if ((*paPlansza)[indeksPola].Puste()) {
 				throw exception("Na danym polu nie ma zadnej figury. Wybierz inne pole.");
@@ -72,7 +78,14 @@ Ruch* Gracz::WybierzRuch()
 			cout << CZYSCLINIE << "Na ktore pole chcesz sie udac? Wpisz pole (np. A3)." << endl;
 			drugiTeksst = true;
 			string test = "c4";
-			string indeksPolaDo = wczytajWartosc<string>(cin);
+
+			if (indeksPolaDo == "")
+			{
+				indeksPolaDo = wczytajWartosc<string>(cin);
+			}
+			else {
+				uiHandler.PrzesunKursor(0, 1);
+			}
 			Ruch* wybranyRuch = nullptr;
 
 			for (int i = 0; i < ruchy.size(); i++) {
@@ -112,8 +125,8 @@ Ruch* Gracz::WybierzRuch()
 			if (drugiTeksst) {
 				cout << CZYSCLINIE;
 				uiHandler.PrzesunKursor(0, -1);
-				//cout << CZYSCLINIE;
-				//uiHandler.PrzesunKursor(0, -1);
+				cout << CZYSCLINIE;
+				uiHandler.PrzesunKursor(0, -1);
 			}
 			cout << CZYSCLINIE;
 			cout << e.what() << endl;

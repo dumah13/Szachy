@@ -1,5 +1,6 @@
 #include <iostream>
 #include <limits.h>
+#include <sstream>
 #pragma once
 
 using namespace std;
@@ -48,6 +49,7 @@ T losowaPrzedzial(T _min, T _max, int _iDokladnosc = 2) {
 	wynik = min + rand() % (max - min + 1);
 
 	return std::is_floating_point<T>::value ? (T)(wynik / (double)mnoznik) : (T)wynik;
+
 }
 
 //Czyœci strumien _is po odczytaniu b³ednych danych
@@ -60,7 +62,7 @@ inline void czyscStrumienWejsciowy(istream& _is) {
 }
 
 //Wczytuje dane typu T ze strumienia _is
-template <typename T>
+template <class T>
 T wczytajWartosc(istream& _is) {
 	T dane;
 	bool blad = true;
@@ -73,14 +75,34 @@ T wczytajWartosc(istream& _is) {
 			blad = false;
 		}
 
-		czyscStrumienWejsciowy(_is);
-	}
+		
 
+		if (&_is != &cin) {
+			break;
+		}
+		else czyscStrumienWejsciowy(_is);
+	}
 	return dane;
 }
 
+template<>
+inline stringstream wczytajWartosc<stringstream>(istream& _is) {
+	bool blad = true;
+	string dane;
+	stringstream ss;
+	//cout << "Typ: " << typeid(T).name() << endl;
+	do
+	{
+		getline(_is, dane);
+	} while (dane == "");
+	ss << dane;
+	
+	czyscStrumienWejsciowy;
+	return ss;
+}
+
 //Wczytuje wartoœæ typu T ze strumienia _is która mieœci siê w przedziale _ograniczenieDolne <= x <= _ograniczenieGorne
-template <typename T>
+template <class T>
 T wczytajWartosc(istream& _is, T _ograniczenieDolne, T _ograniczenieGorne) {
 	T dane;
 
@@ -100,12 +122,16 @@ T wczytajWartosc(istream& _is, T _ograniczenieDolne, T _ograniczenieGorne) {
 		}
 
 		czyscStrumienWejsciowy(_is);
+
+		if (&_is != &cin) {
+			break;
+		}
 	} while (blad);
 
 	return dane;
 }
 
-template <typename T>
+template <class T>
 void wczytajWartosc(istream& _is, T* _tablica, int _dlugoscTablicy) {
 	if (_dlugoscTablicy < 0) {
 		cout << "Dlugosc tablicy nie moze byc ujemna!\n";
@@ -131,6 +157,10 @@ void wczytajWartosc(istream& _is, T* _tablica, int _dlugoscTablicy) {
 			}
 
 			czyscStrumienWejsciowy(_is);
+
+			if (&_is != &cin) {
+				break;
+			}
 		} while (blad);
 
 		_tablica[i] = dane;
