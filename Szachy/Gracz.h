@@ -6,12 +6,14 @@ class Gracz
 {
 	int iKolor;
 	int iWartoscPlanszy;
+	bool bLudzkiGracz;
 	Plansza* paPlansza;
 public:
-	Gracz(Plansza* _paPlansza, int _iKolor, int _iWartoscPlanszy = 0) : paPlansza(_paPlansza), iKolor(_iKolor), iWartoscPlanszy(_iWartoscPlanszy) {};
+	Gracz(Plansza* _paPlansza, int _iKolor, int _iWartoscPlanszy = 0) : paPlansza(_paPlansza), iKolor(_iKolor), iWartoscPlanszy(_iWartoscPlanszy), bLudzkiGracz(true) {};
 
 	int GetKolor();
 	int GetWartosc();
+	bool CzyLudzki() { return bLudzkiGracz; }
 	Ruch* WybierzRuch();
 };
 

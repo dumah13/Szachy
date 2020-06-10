@@ -118,6 +118,7 @@ int main(int argc, char* argv[])
 
 		while (true) {
 			handlerGry.WykonajTure();
+			//handlerGry.ZakonczGre();
 		}
 
 		system("cls");

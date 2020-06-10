@@ -70,3 +70,16 @@ bool Ruch::operator==(int _pos[2]) {
 		return false;
 	}
 }
+
+bool Ruch::operator==(Wektor poz) {
+
+	int x = poz.x;
+	int y = poz.y;
+
+	if (ruchDo.x == x && ruchDo.y == y) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}

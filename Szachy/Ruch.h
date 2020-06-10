@@ -67,6 +67,14 @@ struct Wektor {
 		return *this;
 	}
 
+	bool operator==(Wektor  _wek) {
+		bool iden = false;
+		if (_wek.x == x && _wek.y == y) {
+			iden = true;
+		}
+
+		return iden;
+	}
 };
 
 #pragma once
@@ -101,4 +109,5 @@ public:
 
 	bool operator==(string _indeksDo);
 	bool operator==(int _pos[2]);
+	bool operator==(Wektor poz);
 };

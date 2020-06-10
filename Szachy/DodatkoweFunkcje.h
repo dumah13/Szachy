@@ -97,7 +97,7 @@ inline stringstream wczytajWartosc<stringstream>(istream& _is) {
 	} while (dane == "");
 	ss << dane;
 	
-	czyscStrumienWejsciowy;
+	czyscStrumienWejsciowy(_is);
 	return ss;
 }
 

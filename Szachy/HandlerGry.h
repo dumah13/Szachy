@@ -11,6 +11,7 @@ class HandlerGry
 	vector<Ruch> historiaRuchow;
 	Gracz* gGracze[2];
 	int iTuraGracza = 0;
+	int iZwyciezca = 0;
 	int iLicznikTur = 0;
 	int iIloscBotow = 0;
 	Figura* enPassant = nullptr;
@@ -23,10 +24,12 @@ public:
 
 	Wektor WykonajRuch(Ruch* _pRuch);
 	void InicjalizujGre(int _iIloscBotow);
-	void WykonajTure();
-	void WyswietlInterefejs();
+	int WykonajTure();
+	void WyswietlInterfejs();
+	void SprawdzLegalneRuchyKrola(int _iKolorGracza);
 	void SprawdzLegalneRuchy(int _iKolorGracza);
 	int SprawdzSzach();
+	int SprawdzMat();
 	int ZakonczGre();
 };
 

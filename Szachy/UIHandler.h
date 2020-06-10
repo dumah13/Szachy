@@ -11,7 +11,7 @@ class UIHandler
 
 public:
 	const static int WielkoscBuforaOkna = 5;
-	const static int MaxDlugoscLiniiOkna = 40;
+	const static int MaxDlugoscLiniiOkna = 50;
 	
 private:
 	static HANDLE wHnd;

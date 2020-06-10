@@ -149,6 +149,7 @@ string UIHandler::WyswietlZapytanie(string _komunikat, int _iloscZnakow, COORD _
 		_punktWyswietlenia = point;
 	}
 
+
 	
 		//SetCursorPos(10, 10);
 
@@ -157,14 +158,21 @@ string UIHandler::WyswietlZapytanie(string _komunikat, int _iloscZnakow, COORD _
 
 	COORD pozycjaKursora = { _punktWyswietlenia.X + wielkoscOkna[0] / 2 - _iloscZnakow / 2, _punktWyswietlenia.Y + wielkoscOkna[2] + 3 };
 
+	
+	if (_centrum) {
+		pozycjaKursora.X -= wielkoscOkna[0] / 2;
+		pozycjaKursora.Y -= wielkoscOkna[1] / 2;
+	}
+
 	SetConsoleCursorPosition(wHnd, pozycjaKursora);
 	string input = wczytajWartosc<string>(cin);
 
+
 	GetConsoleScreenBufferInfo(wHnd, &bufferInfo);
-	SetConsoleCursorPosition(wHnd, { point.X, point.Y + wielkoscOkna[1]});
+	SetConsoleCursorPosition(wHnd, { point.X, point.Y});
 
 	delete wielkoscOkna;
-	return string();
+	return input;
 }
 
 void UIHandler::PrzesunKursor(int _ix, int _iy) {
@@ -184,12 +192,13 @@ SHORT* UIHandler::WyswietlOkno(string _komunikat, COORD _pozycja, bool _centrum)
 	int iloscLinii = _komunikat.length() / MaxDlugoscLiniiOkna + 1;
 	int windowSizeX = iloscLinii == 1 ? _komunikat.length() + 2 * WielkoscBuforaOkna +2 : MaxDlugoscLiniiOkna + 2*WielkoscBuforaOkna + 2;
 	int windowSizeY = iloscLinii + 5;
-	SHORT Y = _pozycja.Y;
+
 
 	if (_centrum) {
 		_pozycja.X -= windowSizeX / 2;
 		_pozycja.Y -= windowSizeY / 2;
 	}
+	SHORT Y = _pozycja.Y;
 
 	SetConsoleCursorPosition(wHnd, _pozycja);
 

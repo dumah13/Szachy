@@ -44,13 +44,24 @@ Ruch* Gracz::WybierzRuch()
 	{
 		try
 		{
-			cout << "Ktora figure chcesz ruszyc? Wpisz pole (np. A3)." << endl;
+			cout << "Ktora figure chcesz ruszyc? Wpisz pole (np. 'A3', 'B3 B5'). Mozesz tez wpisac 'sur' aby poddac rozgrywke i 'cls' aby odswiezyc wyswietlanie." << endl;
 			wyswietlonoUI = false;
 			stringstream ss;
 			ss = wczytajWartosc<stringstream>(cin);
 			string indeksPolaDo = "";
 
 			indeksPola = wczytajWartosc<string>(ss);
+			ToLower(indeksPola);
+
+			if (indeksPola == "sur") {
+				return nullptr;
+			}
+
+			else if (indeksPola == "cls") {
+				uiHandler.OdswiezPlansze();
+				continue;
+			}
+
 			indeksPolaDo = wczytajWartosc<string>(ss);
 
 			if ((*paPlansza)[indeksPola].Puste()) {
