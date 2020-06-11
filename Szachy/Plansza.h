@@ -42,7 +42,7 @@ const TypFigury ustawienieBialeDol[8][8] = {
 	TypFigury::Brak,TypFigury::Brak,TypFigury::Brak,TypFigury::Brak,TypFigury::Brak,TypFigury::Brak,TypFigury::Brak,TypFigury::Brak,
 	TypFigury::Brak,TypFigury::Brak,TypFigury::Brak,TypFigury::Brak,TypFigury::Brak,TypFigury::Brak,TypFigury::Brak,TypFigury::Brak,
 	TypFigury::bPion, TypFigury::bPion, TypFigury::bPion, TypFigury::bPion, TypFigury::bPion, TypFigury::bPion, TypFigury::bPion, TypFigury::bPion,
-	TypFigury::bWieza, TypFigury::bKon,TypFigury::bGoniec,TypFigury::bKrol,TypFigury::bKrolowa, TypFigury::bGoniec,TypFigury::bKon,TypFigury::bWieza,
+	TypFigury::bWieza, TypFigury::bKon,TypFigury::bGoniec,TypFigury::bKrolowa,TypFigury::bKrol, TypFigury::bGoniec,TypFigury::bKon,TypFigury::bWieza,
 };
 
 const TypFigury ustawienieCzarneDol[8][8] = {

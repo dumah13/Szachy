@@ -177,7 +177,7 @@ void Figura::sprawdzRuchy(int _pozycja[2], Plansza& _plansza) {
 			if (!docelowe->Puste()) 
 			{
 				if (sgn(docelowe->GetFigura()->GetTyp()) == sgn(iTypFigury) || abs((int)iTypFigury) == (int)TypFigury::bPion) {
-					if (iPozycjaStartowa && docelowe->GetFigura()->GetPozycjaStartowa() && abs((int)iTypFigury) == (int)TypFigury::bWieza && abs((int)docelowe->GetFigura()->GetTyp()) == (int)TypFigury::bKrol && docelowe->GetFigura()->GetPozycjaStartowa()) {
+					if (abs((int)iTypFigury) == (int)TypFigury::bWieza && iPozycjaStartowa && docelowe->GetFigura()->GetPozycjaStartowa() && abs((int)docelowe->GetFigura()->GetTyp()) == (int)TypFigury::bKrol && docelowe->GetFigura()->GetPozycjaStartowa()) {
 						_roszada = true;
 					}
 					else {
@@ -201,6 +201,9 @@ void Figura::sprawdzRuchy(int _pozycja[2], Plansza& _plansza) {
 
 				//Handling double pusha piona
 				if (wektor.wersor) {
+					if (niedozwolonyRuch) {
+						break;
+					}
 					Ruch ruch2(this, &_plansza, ruchZ, ruchDo, _zbicie, _promocja, true, typZbitej);
 					mozliweRuchy.push_back(ruch2);
 					break;

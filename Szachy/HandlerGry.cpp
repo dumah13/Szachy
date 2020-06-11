@@ -158,14 +158,13 @@ int HandlerGry::WykonajTure()
 
 	iZwyciezca = 1 - iTuraGracza;
 
-	SprawdzLegalneRuchyKrola(iTuraGracza);
+	//SprawdzLegalneRuchyKrola(iTuraGracza);
+	SprawdzLegalneRuchy(iTuraGracza);
+
+	SprawdzSzach();
 
 	if (SprawdzMat()) {
 		return ZakonczGre();
-	}
-
-	if (SprawdzSzach()) {
-		SprawdzLegalneRuchy(iTuraGracza);
 	}
 
 	if (bWyswietlonyInterfejs)
@@ -206,6 +205,8 @@ void HandlerGry::WyczyscInterfejs() {
 	cout << CZYSCLINIE;
 	uiHandler.PrzesunKursor(0, -1);
 	cout << CZYSCLINIE;
+	uiHandler.PrzesunKursor(0, -1);
+	cout << CZYSCLINIE;
 }
 
 void HandlerGry::WyswietlInterfejs()
@@ -224,6 +225,8 @@ void HandlerGry::WyswietlInterfejs()
 	else {
 		cout << "Historia ruchow jest pusta";
 	}
+	cout << endl << setw(pPlansza->getSzerokoscBuforu()) << "";
+	cout << (bSzach ? "SZACH!" : "");
 	cout << endl;
 }
 
@@ -324,23 +327,26 @@ void HandlerGry::SprawdzLegalneRuchyKrola(int _iKolorGracza)
 }
 
 void HandlerGry::SprawdzLegalneRuchy(int _iKolorGracza){
-	iLiczbaRuchow = 0;
+	//iLiczbaRuchow = 0;
+	int kolor = _iKolorGracza == 0 ? 1 : -1;
 
 	for (int i = 0; i < pPlansza->iWymiaryPlanszy; i++) {
 		for (int j = 0; j < pPlansza->iWymiaryPlanszy; j++) {
-			if (!(*pPlansza)[i][j].Puste())
+			if (!(*pPlansza)[i][j].Puste() && sgn((int)(*pPlansza)[i][j].GetFigura()->GetTyp()) == kolor)
 			{
 				for (int k = 0; k < (*pPlansza)[i][j].GetFigura()->GetRuchy().size(); k++) {
 					vector<Figura*> zaktualizowaneFigury;
 					vector<Wektor> pozycjeFigur;
+					Wektor pozKrola;
 					int kolor = _iKolorGracza == 0 ? 1 : -1;
 
 					Figura* figuraZ = (*pPlansza)[i][j].GetFigura();
 					(*pPlansza)[i][j].ZdejmijFigure();
 
 					Figura* figuraDo = nullptr;
+					bool roszada = (figuraZ->GetRuchy()[k].GetSpecjalne() && abs((int)figuraZ->GetRuchy()[k].GetTypFigury()) == (int)TypFigury::bWieza);
 
-					if (figuraZ->GetRuchy()[k].GetZbicie() || (figuraZ->GetRuchy()[k].GetSpecjalne() && abs((int)figuraZ->GetRuchy()[k].GetTypFigury()) == (int)TypFigury::bWieza)) {
+					if (figuraZ->GetRuchy()[k].GetZbicie() || roszada) {
 						int x = figuraZ->GetRuchy()[k].GetDo().x;
 						int y = figuraZ->GetRuchy()[k].GetDo().y;
 						figuraDo = (*pPlansza)[x][y].GetFigura();
@@ -350,16 +356,36 @@ void HandlerGry::SprawdzLegalneRuchy(int _iKolorGracza){
 					}
 
 					int x = figuraZ->GetRuchy()[k].GetDo().x;
-					int y = figuraZ->GetRuchy()[k].GetDo().y;
+					int y;
+
+					if (!roszada)
+					{
+
+
+						y = figuraZ->GetRuchy()[k].GetDo().y;
+						pozKrola = figuraZ->GetRuchy()[k].GetDo();
+					}
+					else {
+						Wektor kierunek(0, -sgn(figuraZ->GetRuchy()[k].GetDo().y - figuraZ->GetRuchy()[k].GetZ().y));
+	
+
+						y = figuraZ->GetRuchy()[k].GetDo().y + kierunek.y;
+
+						pozKrola = { x, y + kierunek.y };
+
+						(*pPlansza)[pozKrola.x][pozKrola.y].UstawFigure(figuraDo);
+					}
+
 					int poz[2] = { x,y };
 
 					(*pPlansza)[x][y].UstawFigure(figuraZ);
+
 
 					for (int l = 0; l < pPlansza->iWymiaryPlanszy; l++) {
 						for (int m = 0; m < pPlansza->iWymiaryPlanszy; m++) {
 							if (!(*pPlansza)[l][m].Puste() && (*pPlansza)[l][m].GetFigura() != figuraZ && sgn((int)(*pPlansza)[l][m].GetFigura()->GetTyp()) == kolor*-1) {
 								for (int n = 0; n < (*pPlansza)[l][m].GetFigura()->GetRuchy().size(); n++) {
-									if ((*pPlansza)[l][m].GetFigura()->GetRuchy()[n] == figuraZ->GetRuchy()[k].GetDo()) {
+									if ((*pPlansza)[l][m].GetFigura()->GetRuchy()[n] == figuraZ->GetRuchy()[k].GetZ() || (*pPlansza)[l][m].GetFigura()->GetRuchy()[n] == pozKrola || abs((int)(*pPlansza)[l][m].GetFigura()->GetRuchy()[n].GetZbita()) == (int)TypFigury::bKrol){
 										int poz2[2] = { l,m };
 										(*pPlansza)[l][m].GetFigura()->sprawdzRuchy(poz2, *pPlansza);
 										zaktualizowaneFigury.push_back((*pPlansza)[l][m].GetFigura());
@@ -373,14 +399,23 @@ void HandlerGry::SprawdzLegalneRuchy(int _iKolorGracza){
 						}
 					}
 
+					
+					int yDoceloweStare = figuraZ->GetRuchy()[k].GetDo().y;
+
 					if (SprawdzSzach()) {
+						
 						(*pPlansza)[x][y].GetFigura()->GetRuchy().erase((*pPlansza)[x][y].GetFigura()->GetRuchy().begin() + k--);
 					}
 
 					(*pPlansza)[x][y].ZdejmijFigure();
+
 					if (figuraDo)
 					{
-						(*pPlansza)[x][y].UstawFigure(figuraDo);
+						if (roszada) {
+							(*pPlansza)[pozKrola.x][pozKrola.y].ZdejmijFigure();
+						}
+						
+						(*pPlansza)[x][yDoceloweStare].UstawFigure(figuraDo);
 					}
 					(*pPlansza)[i][j].UstawFigure(figuraZ);
 
@@ -389,7 +424,7 @@ void HandlerGry::SprawdzLegalneRuchy(int _iKolorGracza){
 						zaktualizowaneFigury[l]->sprawdzRuchy(pozN, *pPlansza);
 					}
 				}
-				iLiczbaRuchow += (*pPlansza)[i][j].GetFigura()->GetRuchy().size();
+				//iLiczbaRuchow += (*pPlansza)[i][j].GetFigura()->GetRuchy().size();
 			}
 		}
 	}
