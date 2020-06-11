@@ -1,6 +1,7 @@
 #include "HandlerGry.h"
 #include "DodatkoweFunkcje.h"
 #include "UIHandler.h"
+#include <iomanip>
 
 HandlerGry::HandlerGry(int _iIloscBotow, Plansza* _plansza) :
 	gGracze{},
@@ -120,6 +121,7 @@ void HandlerGry::InicjalizujGre(int _iIloscBotow)
 		delete pPlansza;
 	}
 
+	bWyswietlonyInterfejs = false;
 	system("cls");
 
 	Plansza* ptr = new Plansza();
@@ -133,7 +135,7 @@ void HandlerGry::InicjalizujGre(int _iIloscBotow)
 		gGracze[i] = new Gracz(pPlansza, i);
 	}
 
-	iLicznikTur = 0;
+	iLicznikTur = 1;
 	iIloscBotow = 0;
 	bSzach = false;
 	iTuraGracza = 0;
@@ -158,13 +160,28 @@ int HandlerGry::WykonajTure()
 
 	SprawdzLegalneRuchyKrola(iTuraGracza);
 
+	if (SprawdzMat()) {
+		return ZakonczGre();
+	}
+
 	if (SprawdzSzach()) {
 		SprawdzLegalneRuchy(iTuraGracza);
 	}
 
+	if (bWyswietlonyInterfejs)
+	{
+		WyczyscInterfejs();
+		bWyswietlonyInterfejs = false;
+	}
+
+	if (gGracze[iTuraGracza]->CzyLudzki())
+	{
+		WyswietlInterfejs();
+		bWyswietlonyInterfejs = true;
+	}
+
 	Ruch* ruch = gGracze[iTuraGracza]->WybierzRuch();
 
-	
 
 	if (ruch == nullptr) {
 		return ZakonczGre();
@@ -176,19 +193,85 @@ int HandlerGry::WykonajTure()
 
 	WykonajRuch(ruch);
 
-	WyswietlInterfejs();
-
 	iTuraGracza = iTuraGracza == 0 ? 1 : 0;
+	iLicznikTur++;
 
 	return -1;
 }
 
+void HandlerGry::WyczyscInterfejs() {
+	uiHandler.PrzesunKursor(0, -1);
+	cout << CZYSCLINIE;
+	uiHandler.PrzesunKursor(0, -1);
+	cout << CZYSCLINIE;
+	uiHandler.PrzesunKursor(0, -1);
+	cout << CZYSCLINIE;
+}
 
 void HandlerGry::WyswietlInterfejs()
 {
-	// TODO: Dodaj kod implementacji w tym miejscu.
+	cout << setw(pPlansza->getSzerokoscBuforu()) << "";
+	cout << left << setw(15) << "Tura gracza: " << left << setw(pPlansza->iWymiaryPlanszy*pPlansza->getSzerokoscPola() - 35) << (iTuraGracza == 0 ? "bialy" : "czarny") << setw(15) << left << "Tura: " << setw(5) << right << iLicznikTur;
+	cout << endl << setw(pPlansza->getSzerokoscBuforu()) << "";
+	cout << left << setw(30) << "Liczba mozliwych ruchow: " << left << setw(pPlansza->iWymiaryPlanszy * pPlansza->getSzerokoscPola() - 50) << iLiczbaRuchow  << setw(15) << left << "Wartosc: " << setw(5) << right << gGracze[iTuraGracza]->GetWartosc();
+	cout << endl << setw(pPlansza->getSzerokoscBuforu()) << "";
+	cout << left << setw(15) << "Ostatni ruch: ";
+	//cout << left << setw(pPlansza->iWymiaryPlanszy * pPlansza->getSzerokoscPola() - 35);
+	if (!historiaRuchow.empty())
+	{
+		WypiszDaneRuchu(&historiaRuchow.back());
+	}
+	else {
+		cout << "Historia ruchow jest pusta";
+	}
+	cout << endl;
 }
 
+string HandlerGry::TypDoString(TypFigury _typ) {
+	string nazwa;
+
+	switch (_typ) {
+	case TypFigury::bPion:
+	case TypFigury::cPion:
+		nazwa = "Pion";
+		break;
+	case TypFigury::bGoniec:
+	case TypFigury::cGoniec:
+		nazwa = "Goniec";
+		break;
+	case TypFigury::bKon:
+	case TypFigury::cKon:
+		nazwa = "Kon";
+		break;
+	case TypFigury::bKrol:
+	case TypFigury::cKrol:
+		nazwa = "Krol";
+		break;
+	case TypFigury::bKrolowa:
+	case TypFigury::cKrolowa:
+		nazwa = "Krolowa";
+		break;
+	case TypFigury::bWieza:
+	case TypFigury::cWieza:
+		nazwa = "Wieza";
+		break;
+	default:
+		nazwa = "brak";
+		break;
+	}
+	
+	return nazwa;
+}
+
+void HandlerGry::WypiszDaneRuchu(Ruch* _ruch, ostream& _os) {
+	string figura;
+	figura;
+
+	_os << KonwertujIndeks(_ruch->GetZ()) << " -> " << KonwertujIndeks(_ruch->GetDo()) << right << setw(5) << (_ruch->GetAwans() ? "Awans" : "");
+	_os << right << setw(5) << TypDoString(_ruch->GetTypFigury()) << right << setw(5) << (_ruch->GetZbicie() ? " Zbija: " : "")<< setw(5) << (_ruch->GetZbicie() ? "-" + TypDoString(_ruch->GetZbita()) + "-" : "");
+
+	_os << right << setw(5) << (_ruch->GetSpecjalne() ? abs((int)_ruch->GetTypFigury()) == (int)TypFigury::bWieza ? "Roszada" : _ruch->GetZbicie() ? "En Passant" : "Podwojny" : "");
+}
 
 void HandlerGry::SprawdzLegalneRuchyKrola(int _iKolorGracza)
 {
@@ -241,6 +324,7 @@ void HandlerGry::SprawdzLegalneRuchyKrola(int _iKolorGracza)
 }
 
 void HandlerGry::SprawdzLegalneRuchy(int _iKolorGracza){
+	iLiczbaRuchow = 0;
 
 	for (int i = 0; i < pPlansza->iWymiaryPlanszy; i++) {
 		for (int j = 0; j < pPlansza->iWymiaryPlanszy; j++) {
@@ -305,6 +389,7 @@ void HandlerGry::SprawdzLegalneRuchy(int _iKolorGracza){
 						zaktualizowaneFigury[l]->sprawdzRuchy(pozN, *pPlansza);
 					}
 				}
+				iLiczbaRuchow += (*pPlansza)[i][j].GetFigura()->GetRuchy().size();
 			}
 		}
 	}
@@ -330,7 +415,23 @@ int HandlerGry::SprawdzSzach()
 }
 
 int HandlerGry::SprawdzMat() {
-	return 1;
+	int kolor = iTuraGracza == 0 ? 1 : -1;
+	int mat = 1;
+	iLiczbaRuchow = 0;
+
+	for (int i = 0; i < pPlansza->iWymiaryPlanszy; i++) {
+		for (int j = 0; j < pPlansza->iWymiaryPlanszy; j++) {
+			if (!(*pPlansza)[i][j].Puste() && sgn((int)(*pPlansza)[i][j].GetFigura()->GetTyp()) == kolor)
+			{
+				if (!(*pPlansza)[i][j].GetFigura()->GetRuchy().empty()) {
+					mat = 0;
+					iLiczbaRuchow += (*pPlansza)[i][j].GetFigura()->GetRuchy().size();
+				}
+			}
+		}
+	}
+
+	return mat;
 }
 
 
@@ -355,4 +456,18 @@ int HandlerGry::ZakonczGre()
 	powtorz = decyzja == "y" ? 1 : decyzja == "yes" ? 1 : 0;
 
 	return powtorz;
+}
+
+string HandlerGry::KonwertujIndeks(Wektor _we) {
+	char c[3] = { _we.y + 65, _we.x + 49, '\0' };
+
+	string s = c;
+	return s;
+}
+
+Wektor HandlerGry::KonwertujIndeks(string _s) {
+	ToLower(_s);
+	Wektor we = { _s[0] - 97, _s[1] - 49 };
+
+	return we;
 }

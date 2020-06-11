@@ -1,6 +1,7 @@
 #include "Gracz.h"
 #include "Ruch.h"
 #include <vector>
+#include <iostream>
 
 class Plansza;
 
@@ -14,7 +15,9 @@ class HandlerGry
 	int iZwyciezca = 0;
 	int iLicznikTur = 0;
 	int iIloscBotow = 0;
+	int iLiczbaRuchow = 0;
 	Figura* enPassant = nullptr;
+	bool bWyswietlonyInterfejs = false;
 	bool bSzach = false;
 public:
 	HandlerGry(int _iIloscBotow, Plansza* _plansza = nullptr);
@@ -25,12 +28,17 @@ public:
 	Wektor WykonajRuch(Ruch* _pRuch);
 	void InicjalizujGre(int _iIloscBotow);
 	int WykonajTure();
+	void WyczyscInterfejs();
 	void WyswietlInterfejs();
+	string TypDoString(TypFigury _typ);
+	void WypiszDaneRuchu(Ruch* _ruch, ostream& _os = cout);
 	void SprawdzLegalneRuchyKrola(int _iKolorGracza);
 	void SprawdzLegalneRuchy(int _iKolorGracza);
 	int SprawdzSzach();
 	int SprawdzMat();
 	int ZakonczGre();
+	string KonwertujIndeks(Wektor _we);
+	Wektor KonwertujIndeks(string _s);
 };
 
 

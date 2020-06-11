@@ -2,6 +2,7 @@
 #include "DodatkoweFunkcje.h"
 #include "UIHandler.h"
 #include <sstream>
+#include <iomanip>
 
 vector<string> Warstwa1 =
 { ".\\........./.",
@@ -44,9 +45,12 @@ Ruch* Gracz::WybierzRuch()
 	{
 		try
 		{
+			cout << setw(paPlansza->getSzerokoscBuforu()) << "";
 			cout << "Ktora figure chcesz ruszyc? Wpisz pole (np. 'A3', 'B3 B5'). Mozesz tez wpisac 'sur' aby poddac rozgrywke i 'cls' aby odswiezyc wyswietlanie." << endl;
 			wyswietlonoUI = false;
 			stringstream ss;
+
+			cout << setw(paPlansza->getSzerokoscBuforu()) << "";
 			ss = wczytajWartosc<stringstream>(cin);
 			string indeksPolaDo = "";
 
@@ -54,11 +58,19 @@ Ruch* Gracz::WybierzRuch()
 			ToLower(indeksPola);
 
 			if (indeksPola == "sur") {
+				cout << CZYSCLINIE;
+				uiHandler.PrzesunKursor(0, -1);
+				cout << CZYSCLINIE;
+				uiHandler.PrzesunKursor(0, -1);
 				return nullptr;
 			}
 
 			else if (indeksPola == "cls") {
 				uiHandler.OdswiezPlansze();
+				cout << CZYSCLINIE;
+				uiHandler.PrzesunKursor(0, -1);
+				cout << CZYSCLINIE;
+				uiHandler.PrzesunKursor(0, -1);
 				continue;
 			}
 
@@ -86,12 +98,13 @@ Ruch* Gracz::WybierzRuch()
 
 			wyswietlonoUI = true;
 
-			cout << CZYSCLINIE << "Na ktore pole chcesz sie udac? Wpisz pole (np. A3)." << endl;
+			cout << CZYSCLINIE << setw(paPlansza->getSzerokoscBuforu()) << "" << "Na ktore pole chcesz sie udac? Wpisz pole (np. A3)." << endl;
 			drugiTeksst = true;
-			string test = "c4";
+
 
 			if (indeksPolaDo == "")
 			{
+				cout << setw(paPlansza->getSzerokoscBuforu()) << "";
 				indeksPolaDo = wczytajWartosc<string>(cin);
 			}
 			else {
@@ -140,6 +153,8 @@ Ruch* Gracz::WybierzRuch()
 				uiHandler.PrzesunKursor(0, -1);
 			}
 			cout << CZYSCLINIE;
+
+			cout << setw(paPlansza->getSzerokoscBuforu()) << "";
 			cout << e.what() << endl;
 			uiHandler.PrzesunKursor(0, -2);
 			cout << CZYSCLINIE;

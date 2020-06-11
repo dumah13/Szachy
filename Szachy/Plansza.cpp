@@ -5,7 +5,7 @@
 Plansza::Plansza()
 {
 	iWysokoscPola = 0;
-	iSzerokoscBuforu = paPlansza[0][0].GetSzerokosc();
+	iSzerokoscBuforu = paPlansza[0][0].GetSzerokosc()*2;
 	iSzerokoscPola = paPlansza[0][0].GetSzerokosc();
 
 	for (int i = 0; i < iWymiaryPlanszy; i++)
