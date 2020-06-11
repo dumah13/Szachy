@@ -5,7 +5,7 @@
 using namespace std;
 
 Plansza* UIHandler:: pAktualnaPlansza = nullptr;
-COORD UIHandler::consoleSize;
+COORD UIHandler::consoleSize = {300,300};
 PCOORD UIHandler::pConsoleSize = &consoleSize;
 HANDLE UIHandler::wHnd = GetStdHandle(STD_OUTPUT_HANDLE);
 HANDLE UIHandler::rHnd = GetStdHandle(STD_INPUT_HANDLE);
@@ -236,22 +236,25 @@ SHORT* UIHandler::WyswietlOkno(string _komunikat, COORD _pozycja, bool _centrum)
 	cout.fill('-');
 	cout.width(windowSizeX);
 	cout << "";
+	cout.fill(' ');
 
 	SHORT* wielkoscOkna = new SHORT[3]{ (SHORT)windowSizeX, (SHORT)windowSizeY, (SHORT)iloscLinii };
 	return wielkoscOkna;
 }
 
 
-int UIHandler::Init(Plansza* _plansza, bool _fullscreen)
+int UIHandler::Init(Plansza* _plansza)
 {
 	UIHandler::pAktualnaPlansza = _plansza;
 
+	return 0;
+}
+
+void UIHandler::PrzelaczFullscreen(bool _fullscreen) {
 	if (_fullscreen) {
-		SetConsoleDisplayMode(wHnd, CONSOLE_FULLSCREEN_MODE, pConsoleSize);
+		SetConsoleDisplayMode(GetStdHandle(STD_OUTPUT_HANDLE), CONSOLE_FULLSCREEN_MODE, pConsoleSize);
 	}
 	else {
-		SetConsoleDisplayMode(wHnd, CONSOLE_WINDOWED_MODE, pConsoleSize);
+		SetConsoleDisplayMode(GetStdHandle(STD_OUTPUT_HANDLE), CONSOLE_WINDOWED_MODE, pConsoleSize);
 	}
-
-	return 0;
 }

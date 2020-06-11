@@ -35,6 +35,7 @@ public:
 	void PrzesunKursor(int _ix, int _iy);
 	string WyswietlZapytanie(string _komunikat, int _iloscZnakow, COORD _punktWyswietlenia = { -1,-1 }, bool _centrum = false);
 	SHORT* WyswietlOkno(string _komunikat, COORD _pozycja, bool _centrum = false);
-	static int Init(Plansza* _plansza, bool _fullscreen);
+	static int Init(Plansza* _plansza);
+	static void PrzelaczFullscreen(bool _fullscren);
 } static uiHandler;
 

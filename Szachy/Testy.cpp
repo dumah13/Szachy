@@ -8,6 +8,8 @@
 #include <iostream>
 #include <windows.h>
 #include "UIHandler.h"
+#include "DodatkoweFunkcje.h"
+#include <iomanip>
 
 using namespace std;
 
@@ -15,125 +17,103 @@ int main(int argc, char* argv[])
 {
 	try
 	{
-
-
-		LPCWSTR tytul = L"Szachy :))))))))))))))";
+		int krokProgramu = 0;
+		bool fullscreen = false;
+		bool kontynuuj = true;
+		LPCWSTR tytul = L"conChess";
 		SetConsoleTitle(tytul);
+		HandlerGry handlerGry;
+		int blad = 0;
 
-		Rysunek rysunek;
-		rysunek.InitRysunek(5);
-		vector<string> obrazek = { "----------",
-			"|        |",
-			"|        |",
-			"|        |",
-			"----------"
-		};
-
-		for (int i = 0; i < 10; i++)
+		vector<string> napis =
 		{
-			rysunek.DodajDoRysunku(obrazek);
-		}
-
-		vector<string> warstwa = { ".\\........./.",
-							       "...\\...../...",
-							       ".....-|-.....",
-								   ".../.....\\...",
-								   "./.........\\.",
-								   ".............",
+			"                    ________   ___  ___   _______    ________    ________      ",
+			"                   |\\   ____\\ |\\  \\|\\  \\ |\\  ___ \\  |\\   ____\\  |\\   ____\\     ",
+			"                   \\ \\  \\___| \\ \\  \\\\\\  \\\\ \\   __/| \\ \\  \\___|_ \\ \\  \\___|_    ",
+			"                    \\ \\  \\     \\ \\   __  \\\\ \\  \\_|/__\\ \\_____  \\ \\ \\_____  \\   ",
+			"  / __|/ _ \\ | '_ \\  \\ \\  \\____ \\ \\  \\ \\  \\\\ \\  \\_|\\ \\\\|____|\\  \\ \\|____|\\  \\  ",
+			" | (__| (_) || | | |  \\ \\_______\\\\ \\__\\ \\__\\\\ \\_______\\ ____\\_\\  \\  ____\\_\\  \\ ",
+			"  \\___|\\___/ |_| |_|   \\|_______| \\|__|\\|__| \\|_______||\\_________\\|\\_________\\",
+			"                                                        \\|_________|\\|_________|"
 		};
+		
+		Rysunek rNapis(napis);
+		int rodzajGry = 0;
+		int iloscBotow = 0;
+		int stanTury;
 
-		defaultLogger.Log("aaaaaaaaabb");
+		while (kontynuuj) {
 
-		rysunek.Rysuj();
-		cout << endl;
+			switch (krokProgramu) {
 
-		//rysunek.UsunWarstwe();
-		rysunek.Rysuj();
+			case 0:
+				system("cls");
+				rNapis.Rysuj();
+				cout << "Autor: Oliwer Sobolewski" << endl << endl;;
 
-		Figura figura1;
+				cout << setw(30) << "" <<"Witaj!" << endl  << endl << setw(30) << "" << "Wpisz:" << endl;
+				cout << setw(20) << "" << "1 - aby rozpoczac gre" << endl;
+				cout << setw(20) << "" << "2 - aby przelaczyc pelny ekran" << endl;
+				cout << setw(20) << "" << "3 - aby wyjsc z programu" << endl;
 
-		Plansza* plansza = new Plansza();
+				krokProgramu = wczytajWartosc<int>(cin, 1, 3);
+				break;
+			case 1:
+				system("cls");
 
-		plansza->RysujPlansze();
-		//plansza[0][5].DodajMaske(warstwa);
-		string str = "A5";
-		//plansza[str].DodajMaske(warstwa);
+				rodzajGry = 0;
 
-		figura1.wczytajSymbol("symbole.txt");
-		system("cls");
+				cout << setw(30) << "" << "Wybierz rodzaj gry:" << endl;
+				cout << setw(20) << "" << "1 - Czlowiek vs Bot" << endl;
+				cout << setw(20) << "" << "2 - Czlowiek vs Czlowiek" << endl;
+				cout << setw(20) << "" << "3 - Bot vs Bot" << endl;
 
-		Figura figura2(TypFigury::bPion, "symbole.txt");
-		Figura figura3(TypFigury::bPion, "symbole.txt");
-		Figura figura4(TypFigury::cKon, "symbole.txt");
-		Figura figura5(TypFigury::bKrol, "symbole.txt");
-		Figura figura6(TypFigury::bWieza, "symbole.txt");
-		Figura figura7(TypFigury::cKrolowa, "symbole.txt");
+				rodzajGry = wczytajWartosc<int>(cin, 1, 3);
 
-		HandlerGry handlerGry(0,plansza);
+				iloscBotow = 0;
 
-		figura2.sprawdzWektoryRuchu();
-		figura7.sprawdzWektoryRuchu();
-		int tab[2] = { 3, 4 };
+				switch (rodzajGry) {
+				case 1:
+					iloscBotow = 1;
+					break;
+				case 2: 
+					iloscBotow = 0;
+					break;
+				case 3:
+					iloscBotow = 2;
+					break;
+				}
 
-		figura2.sprawdzRuchy(tab, *plansza);
-		for (int i = 0; i < figura2.GetRuchy().size(); i++) {
-			//(*plansza)[figura2.GetRuchy()[i].GetDo().x][figura2.GetRuchy()[i].GetDo().y].DodajMaske(warstwa);
+				do
+				{
+					handlerGry.InicjalizujGre(iloscBotow);
+
+					do {
+						stanTury = handlerGry.WykonajTure();
+					} while (stanTury == -1);
+
+
+
+				} while (stanTury == 1);
+
+				krokProgramu = 0;
+				break;
+			case 2:
+				fullscreen = !fullscreen;
+				uiHandler.PrzelaczFullscreen(fullscreen);
+				krokProgramu = 0;
+				break;
+			case 3:
+			case 100:
+				kontynuuj = false;
+				break;
+			default:
+				blad = 1;
+				krokProgramu = 0;
+				break;
+				
+			}
 		}
-
-
-		int tab2[2] = { 0, 0 };
-
-
-		figura6.sprawdzRuchy(tab2, *plansza);
-		//plansza[3][4].UstawFigure(*figura2);
-		(*plansza)[5][3].UstawFigure(figura3);
-		(*plansza)[6][5].UstawFigure(figura4);
-		(*plansza)[0][3].UstawFigure(figura6);
-
-
-		Gracz graczTest(plansza, 0);
-
-		/*for (size_t i = 0; i < 1;)
-		{
-			(*plansza)[tab2[0]][tab2[1]].GetFigura()->sprawdzRuchy(tab2, *plansza);
-			Wektor nowa = handlerGry.WykonajRuch(handlerGry.GetGracz(0)->WybierzRuch());
-			tab2[0] = nowa.x;
-			tab2[1] = nowa.y;
-		}*/
-
-		/*uiHandler.DodajWarstweUI(warstwa, 3, 4);
-		uiHandler.OdswiezPole(3, 4);
-		uiHandler.UsunWarsteUI(3, 4);
-		uiHandler.OdswiezPole(3, 4);
-		uiHandler.OdswiezPole("E4");
-		uiHandler.OdswiezPole("A1");
-		uiHandler.OdswiezPole("G8");
-		//uiHandler.OdswiezPole("J2");
-		//return 0;
-		*/
-		Plansza plansza2;
-		plansza2.wczytajUstawienie(ustawienieBialeDol);
-
-		handlerGry.InicjalizujGre(0);
-
-		while (true) {
-			handlerGry.WykonajTure();
-			//handlerGry.ZakonczGre();
-		}
-
-		system("cls");
-		plansza2["D2"].DodajMaske(warstwa);
-		plansza2.RysujPlansze();
-
-		system("cls");
-		plansza2["D2"].UsunMaske();
-		plansza2.RysujPlansze();
-//figura1.Rysuj(plansza[0][4]);
-		defaultLogger.Log("aaaaaaaaabb");
-		defaultLogger.ZapiszLogi();
-
-		string temp = uiHandler.WyswietlZapytanie("Testowy komunikat ASDADADDAADADADSDS", 2, {25,10});
-
 	}
 
 	catch (const std::exception& e)

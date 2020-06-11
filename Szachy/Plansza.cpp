@@ -1,6 +1,7 @@
 ﻿#include "Plansza.h"
 #include "DodatkoweFunkcje.h"
 #include <iostream>
+#include <algorithm>
 
 Plansza::Plansza()
 {
@@ -57,6 +58,10 @@ void Plansza::RysujWiersz(int _iNrWiersza) {
 	for (int i = 0; i < iWymiaryPlanszy; ++i) {
 		paPlansza[_iNrWiersza][i].Rysuj(rWiersz);
 	}
+	for (int i = 0; i < rBufor.size(); ++i) {
+		rBufor[i].erase(rBufor[i].begin(), rBufor[i].end() - 1);
+	}
+	rWiersz.DodajDoRysunku(rBufor);
 	/*if (_iNrWiersza == iWymiaryPlanszy - 1) {
 		int wymiar = paPlansza[0][0].GetFigura().GetSzerokosc();
 		string ostatniaLinijka = "";
@@ -68,6 +73,8 @@ void Plansza::RysujWiersz(int _iNrWiersza) {
 		rWiersz.ZastapWiersz(paPlansza[0][0].GetFigura().GetWysokosc() - 1, ostatniaLinijka);
 	}*/
 	rWiersz.Rysuj();
+
+
 }
 
 void Plansza::wyczyscPlansze() {
@@ -113,6 +120,8 @@ void Plansza::RysujPlansze() {
 		RysujWiersz(i);
 		//std::cout << endl;
 	}
+	std::replace(pierwszaLinijka.begin(), pierwszaLinijka.end(), '_', ' ');
+	cout << pierwszaLinijka << endl;
 	std::cout << endl;
 }
 

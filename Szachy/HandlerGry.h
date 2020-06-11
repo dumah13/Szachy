@@ -20,13 +20,14 @@ class HandlerGry
 	bool bWyswietlonyInterfejs = false;
 	bool bSzach = false;
 public:
-	HandlerGry(int _iIloscBotow, Plansza* _plansza = nullptr);
+	HandlerGry(int _iIloscBotow = 0, Plansza* _plansza = nullptr);
 	~HandlerGry();
 
 	Gracz* GetGracz(int _indeks) { return gGracze[_indeks]; }
 
 	Wektor WykonajRuch(Ruch* _pRuch);
 	void InicjalizujGre(int _iIloscBotow);
+	void RysujPlansze();
 	int WykonajTure();
 	void WyczyscInterfejs();
 	void WyswietlInterfejs();

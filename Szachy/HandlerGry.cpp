@@ -10,7 +10,7 @@ HandlerGry::HandlerGry(int _iIloscBotow, Plansza* _plansza) :
 {
 	int iloscLudzkichGraczy = 2;
 	for (int i=0; i < iloscLudzkichGraczy; i++) {
-		gGracze[i] = new Gracz(pPlansza, i);
+		gGracze[i] = new Gracz(pPlansza,this, i);
 	}
 }
 
@@ -129,10 +129,10 @@ void HandlerGry::InicjalizujGre(int _iIloscBotow)
 	pPlansza->wczytajUstawienie(ustawienieBialeDol);
 	pPlansza->RysujPlansze();
 	
-	uiHandler.Init(pPlansza, true);
+	uiHandler.Init(pPlansza);
 
 	for (int i=0; i < iloscLudzkichGraczy; i++) {
-		gGracze[i] = new Gracz(pPlansza, i);
+		gGracze[i] = new Gracz(pPlansza,this, i);
 	}
 
 	iLicznikTur = 1;
@@ -141,6 +141,12 @@ void HandlerGry::InicjalizujGre(int _iIloscBotow)
 	iTuraGracza = 0;
 
 	historiaRuchow.clear();
+}
+
+void HandlerGry::RysujPlansze() {
+	if (pPlansza) {
+		pPlansza->RysujPlansze();
+	}
 }
 
 

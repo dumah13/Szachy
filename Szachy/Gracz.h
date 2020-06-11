@@ -1,6 +1,8 @@
 #include "Plansza.h"
 #include "Ruch.h"
 
+class HandlerGry;
+
 #pragma once
 class Gracz
 {
@@ -8,8 +10,9 @@ class Gracz
 	int iWartoscPlanszy;
 	bool bLudzkiGracz;
 	Plansza* paPlansza;
+	HandlerGry* handlerGry;
 public:
-	Gracz(Plansza* _paPlansza, int _iKolor, int _iWartoscPlanszy = 0) : paPlansza(_paPlansza), iKolor(_iKolor), iWartoscPlanszy(_iWartoscPlanszy), bLudzkiGracz(true) {};
+	Gracz(Plansza* _paPlansza, HandlerGry* _handlerGry ,int _iKolor, int _iWartoscPlanszy = 0) : paPlansza(_paPlansza), handlerGry(_handlerGry) ,iKolor(_iKolor), iWartoscPlanszy(_iWartoscPlanszy), bLudzkiGracz(true) {};
 
 	int GetKolor();
 	int GetWartosc();

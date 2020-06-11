@@ -3,6 +3,7 @@
 #include "UIHandler.h"
 #include <sstream>
 #include <iomanip>
+#include "HandlerGry.h"
 
 vector<string> Warstwa1 =
 { ".\\........./.",
@@ -62,15 +63,37 @@ Ruch* Gracz::WybierzRuch()
 				uiHandler.PrzesunKursor(0, -1);
 				cout << CZYSCLINIE;
 				uiHandler.PrzesunKursor(0, -1);
-				return nullptr;
+
+				string decyzja;
+				COORD poz = { paPlansza->getSzerokoscBuforu() + paPlansza->iWymiaryPlanszy / 2 * paPlansza->getSzerokoscPola(),paPlansza->iWymiaryPlanszy / 2 * paPlansza->getWysokoscPola() + 3 };
+
+				do
+				{
+					decyzja = uiHandler.WyswietlZapytanie("Czy na pewno? (y/n)", 1, poz, true);
+					ToLower(decyzja);
+				} while (decyzja != "y" && decyzja != "yes" && decyzja != "n" && decyzja != "no");
+
+				bool koniec = false;
+
+				koniec = decyzja == "y" ? 1 : decyzja == "yes" ? 1 : 0;
+
+				if (koniec)
+				{
+					return nullptr;
+				}
+				else {
+					system("cls");
+					handlerGry->RysujPlansze();
+					handlerGry->WyswietlInterfejs();
+					continue;
+				}	
 			}
 
 			else if (indeksPola == "cls") {
-				uiHandler.OdswiezPlansze();
-				cout << CZYSCLINIE;
-				uiHandler.PrzesunKursor(0, -1);
-				cout << CZYSCLINIE;
-				uiHandler.PrzesunKursor(0, -1);
+				system("cls");
+				handlerGry->RysujPlansze();
+				handlerGry->WyswietlInterfejs();
+
 				continue;
 			}
 
@@ -98,14 +121,18 @@ Ruch* Gracz::WybierzRuch()
 
 			wyswietlonoUI = true;
 
-			cout << CZYSCLINIE << setw(paPlansza->getSzerokoscBuforu()) << "" << "Na ktore pole chcesz sie udac? Wpisz pole (np. A3)." << endl;
+			cout << CZYSCLINIE << setw(paPlansza->getSzerokoscBuforu()) << "" << "Na ktore pole chcesz sie udac? Wpisz pole (np. A3). Wpisz 'a' lub dowolny znak zeby anulowac." << endl;
 			drugiTeksst = true;
-
 
 			if (indeksPolaDo == "")
 			{
 				cout << setw(paPlansza->getSzerokoscBuforu()) << "";
 				indeksPolaDo = wczytajWartosc<string>(cin);
+				ToLower(indeksPolaDo);
+				if (indeksPolaDo == "a")
+				{
+					throw exception("");
+				}
 			}
 			else {
 				uiHandler.PrzesunKursor(0, 1);

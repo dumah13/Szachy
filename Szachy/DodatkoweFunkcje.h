@@ -1,6 +1,7 @@
 #include <iostream>
 #include <limits.h>
 #include <sstream>
+#include "UIHandler.h"
 #pragma once
 
 using namespace std;
@@ -56,6 +57,8 @@ T losowaPrzedzial(T _min, T _max, int _iDokladnosc = 2) {
 inline void czyscStrumienWejsciowy(istream& _is) {
 	if (_is.fail() == true) {
 		cout << "Blad strumienia wejsciowego. Nieprawidlowy typ danych.\n";
+		uiHandler.PrzesunKursor(0, -2);
+		cout << CZYSCLINIE;
 		_is.clear();
 		_is.ignore(INT_MAX, '\n');
 	}
@@ -115,7 +118,12 @@ T wczytajWartosc(istream& _is, T _ograniczenieDolne, T _ograniczenieGorne) {
 
 		if (!_is.fail()) {
 			if (dane < _ograniczenieDolne || dane > _ograniczenieGorne) {
+
 				cout << "Wprowadzona wartosc nie miesci sie w podanym zakresie!\n";
+				uiHandler.PrzesunKursor(0, -2);
+				cout << CZYSCLINIE;
+				//uiHandler.PrzesunKursor(0, -1);
+
 			}
 			else
 				blad = false;
