@@ -1,4 +1,4 @@
-#include "Pole.h"
+﻿#include "Pole.h"
 #include "Plansza.h"
 
 Pole::Pole() {

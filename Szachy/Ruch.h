@@ -92,16 +92,19 @@ class Ruch
 	TypFigury typFigury;
 	TypFigury zbitaFigura;
 	bool kolor; //0 - biale, 1 - czarne
-
+	int pozycjaStartowa;
+	int pozycjaStartowaZbitej;
 public:
 
-	Ruch(Figura* _figura, Plansza* _plansza, int _z[2], int _do[2], bool _zbicie, bool _awans, bool _roszada, TypFigury _zbita);
-	Ruch(Figura* _figura, Plansza* _plansza, Wektor _z, Wektor _do, bool _zbicie, bool _awans, bool _specjalne, TypFigury _zbita);
+	Ruch(Figura* _figura, Plansza* _plansza, int _z[2], int _do[2], bool _zbicie, bool _awans, bool _roszada, int _pozycjaStartowa, int _pozycjaStartowaZbitej, TypFigury _zbita);
+	Ruch(Figura* _figura, Plansza* _plansza, Wektor _z, Wektor _do, bool _zbicie, bool _awans, bool _specjalne, int _pozycjaStartowa, int _pozycjaStartowaZbitej, TypFigury _zbita);
 
 	bool GetZbicie() { return czyZbicie; }
 	bool GetAwans() { return czyAwans; }
 	bool GetSpecjalne() { return czySpecjalne; }
 	bool GetKolor() { return kolor; }
+	int GetPozycjaStartowa() { return pozycjaStartowa; }
+	int GetPozycjaStartowaZbitej() { return pozycjaStartowaZbitej; }
 	TypFigury GetTypFigury() { return typFigury; }
 	TypFigury GetZbita() { return zbitaFigura; }
 	Wektor GetZ() { return ruchZ; }

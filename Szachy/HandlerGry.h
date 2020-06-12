@@ -16,17 +16,22 @@ class HandlerGry
 	int iLicznikTur = 0;
 	int iIloscBotow = 0;
 	int iLiczbaRuchow = 0;
+	int iLiczbaRuchowPrzeciwnika = 0;
 	Figura* enPassant = nullptr;
 	bool bWyswietlonyInterfejs = false;
 	bool bSzach = false;
 public:
-	HandlerGry(int _iIloscBotow = 0, Plansza* _plansza = nullptr);
+	HandlerGry(int _iIloscBotow = 0, Plansza* _plansza = nullptr, int kolorGracza = 0);
 	~HandlerGry();
 
 	Gracz* GetGracz(int _indeks) { return gGracze[_indeks]; }
 
-	Wektor WykonajRuch(Ruch* _pRuch);
-	void InicjalizujGre(int _iIloscBotow);
+	Wektor WykonajRuch(Ruch* _pRuch, bool _widoczne = true);
+	void SymulujRuch(Ruch* _pRuch);
+	void CofnijRuch();
+	void InicjalizujGre(int _iIloscBotow, int kolorGracza = 0);
+	int GetLiczbaRuchow() { return iLiczbaRuchow; }
+	int GetLiczbaRuchowPrzeciwnika() { return iLiczbaRuchowPrzeciwnika; }
 	void RysujPlansze();
 	int WykonajTure();
 	void WyczyscInterfejs();

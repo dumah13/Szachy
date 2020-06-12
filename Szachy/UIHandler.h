@@ -20,6 +20,7 @@ private:
 	static Plansza* pAktualnaPlansza;
 	static COORD consoleSize;
 	static PCOORD pConsoleSize;
+	static bool fullscreen;
 public:
 	Plansza* GetPlansza();
 	void SetPlansza(Plansza* _pPlansza);
@@ -36,6 +37,6 @@ public:
 	string WyswietlZapytanie(string _komunikat, int _iloscZnakow, COORD _punktWyswietlenia = { -1,-1 }, bool _centrum = false);
 	SHORT* WyswietlOkno(string _komunikat, COORD _pozycja, bool _centrum = false);
 	static int Init(Plansza* _plansza);
-	static void PrzelaczFullscreen(bool _fullscren);
+	static void PrzelaczFullscreen();
 } static uiHandler;
 

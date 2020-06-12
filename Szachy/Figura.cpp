@@ -165,6 +165,7 @@ void Figura::sprawdzRuchy(int _pozycja[2], Plansza& _plansza) {
 				break;
 			}
 
+			int _pozStartZbitej = 0;
 			bool _promocja = false;
 			bool _roszada = false;
 			bool _zbicie = false;
@@ -179,6 +180,7 @@ void Figura::sprawdzRuchy(int _pozycja[2], Plansza& _plansza) {
 				if (sgn(docelowe->GetFigura()->GetTyp()) == sgn(iTypFigury) || abs((int)iTypFigury) == (int)TypFigury::bPion) {
 					if (abs((int)iTypFigury) == (int)TypFigury::bWieza && iPozycjaStartowa && docelowe->GetFigura()->GetPozycjaStartowa() && abs((int)docelowe->GetFigura()->GetTyp()) == (int)TypFigury::bKrol && docelowe->GetFigura()->GetPozycjaStartowa()) {
 						_roszada = true;
+						_pozStartZbitej = docelowe->GetFigura()->iPozycjaStartowa;
 					}
 					else {
 						niedozwolonyRuch = true;
@@ -204,14 +206,14 @@ void Figura::sprawdzRuchy(int _pozycja[2], Plansza& _plansza) {
 					if (niedozwolonyRuch) {
 						break;
 					}
-					Ruch ruch2(this, &_plansza, ruchZ, ruchDo, _zbicie, _promocja, true, typZbitej);
+					Ruch ruch2(this, &_plansza, ruchZ, ruchDo, _zbicie, _promocja, true, iPozycjaStartowa, _pozStartZbitej, typZbitej);
 					mozliweRuchy.push_back(ruch2);
 					break;
 				}
 
 				if (!niedozwolonyRuch)
 				{
-					Ruch ruch1(this, &_plansza, ruchZ, ruchDo, _zbicie, _promocja, false, typZbitej);
+					Ruch ruch1(this, &_plansza, ruchZ, ruchDo, _zbicie, _promocja, false, iPozycjaStartowa, _pozStartZbitej, typZbitej);
 					mozliweRuchy.push_back(ruch1);
 				}
 
@@ -234,6 +236,7 @@ void Figura::sprawdzRuchy(int _pozycja[2], Plansza& _plansza) {
 
 						docelowe = &_plansza[x][y];
 						if (!docelowe->Puste() && (sgn(docelowe->GetFigura()->GetTyp()) != sgn(iTypFigury))) {
+							_pozStartZbitej = docelowe->GetFigura()->iPozycjaStartowa;
 							if (enPassant) {
 								if (docelowe->GetFigura()->GetPozycjaStartowa() != 2) {
 									continue;
@@ -243,7 +246,7 @@ void Figura::sprawdzRuchy(int _pozycja[2], Plansza& _plansza) {
 							typZbitej = docelowe->GetFigura()->GetTyp();
 							_zbicie = true;
 
-							Ruch ruch2(this, &_plansza, ruchZ, ruchDo, _zbicie, _promocja, enPassant, typZbitej);
+							Ruch ruch2(this, &_plansza, ruchZ, ruchDo, _zbicie, _promocja, enPassant, iPozycjaStartowa, _pozStartZbitej, typZbitej);
 							mozliweRuchy.push_back(ruch2);
 						}
 
@@ -265,7 +268,7 @@ void Figura::sprawdzRuchy(int _pozycja[2], Plansza& _plansza) {
 
 			if (!niedozwolonyRuch)
 			{
-				Ruch ruch(this, &_plansza, ruchZ, ruchDo, _zbicie, _promocja, _roszada, typZbitej);
+				Ruch ruch(this, &_plansza, ruchZ, ruchDo, _zbicie, _promocja, _roszada, iPozycjaStartowa, _pozStartZbitej, typZbitej);
 				mozliweRuchy.push_back(ruch);
 			}
 			else {

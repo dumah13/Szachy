@@ -34,6 +34,60 @@ int Gracz::GetWartosc()
 	return iWartoscPlanszy;
 }
 
+int Gracz::EwaluujPlansze() {
+	int H = 0;
+	int G = 0;
+	int S = 0;
+	int W = 0;
+	int P = 0;
+	int kolor = iKolor == 0 ? 1 : -1;
+
+	for (int i = 0; i < paPlansza->iWymiaryPlanszy; i++) {
+		for (int j = 0; j < paPlansza->iWymiaryPlanszy; j++) {
+			if (!(*paPlansza)[i][j].Puste())
+			{
+				switch ((*paPlansza)[i][j].GetFigura()->GetTyp()){
+				case TypFigury::bPion:
+					P++;
+					break;
+				case TypFigury::cPion:
+					P--;
+					break;
+				case TypFigury::bGoniec:
+					G++;
+					break;
+				case TypFigury::cGoniec:
+					G--;
+					break;
+				case TypFigury::bKon:
+					S++;
+					break;
+				case TypFigury::cKon:
+					S--;
+					break;
+				case TypFigury::bKrolowa:
+					H++;
+					break;
+				case TypFigury::cKrolowa:
+					H--;
+					break;
+				case TypFigury::bWieza:
+					W++;
+					break;
+				case TypFigury::cWieza:
+					W--;
+					break;
+				}
+			}
+		}
+	}
+
+	int wartoscMaterialu = H * 9 + W * 5 + S * 3 + G * 3 + P;
+	int wartoscMobilnosci = wagaMobilnosci * (handlerGry->GetLiczbaRuchow() * kolor + handlerGry->GetLiczbaRuchowPrzeciwnika() * kolor * -1);
+
+	iWartoscPlanszy = wartoscMaterialu + wartoscMobilnosci;
+	return iWartoscPlanszy;
+}
 
 Ruch* Gracz::WybierzRuch()
 {
@@ -47,7 +101,7 @@ Ruch* Gracz::WybierzRuch()
 		try
 		{
 			cout << setw(paPlansza->getSzerokoscBuforu()) << "";
-			cout << "Ktora figure chcesz ruszyc? Wpisz pole (np. 'A3', 'B3 B5'). Mozesz tez wpisac 'sur' aby poddac rozgrywke i 'cls' aby odswiezyc wyswietlanie." << endl;
+			cout << "Ktora figure chcesz ruszyc? Wpisz pole (np. 'A3', 'B3 B5'). Wpisz 'sur' aby poddac rozgrywke, 'cls' aby odswiezyc wyswietlanie i 'f' zeby przelaczyc pelny ekran." << endl;
 			wyswietlonoUI = false;
 			stringstream ss;
 
@@ -95,6 +149,21 @@ Ruch* Gracz::WybierzRuch()
 				handlerGry->WyswietlInterfejs();
 
 				continue;
+			}
+			else if (indeksPola == "f") {
+				uiHandler.PrzelaczFullscreen();
+				cout << CZYSCLINIE;
+				uiHandler.PrzesunKursor(0, -1);
+				cout << CZYSCLINIE;
+				uiHandler.PrzesunKursor(0, -1);
+				continue;
+			}
+			else if (indeksPola == "c") {
+				handlerGry->CofnijRuch();
+				system("cls");
+				handlerGry->RysujPlansze();
+				handlerGry->WyswietlInterfejs();
+				break;
 			}
 
 			indeksPolaDo = wczytajWartosc<string>(ss);

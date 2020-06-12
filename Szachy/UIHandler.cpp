@@ -9,6 +9,7 @@ COORD UIHandler::consoleSize = {300,300};
 PCOORD UIHandler::pConsoleSize = &consoleSize;
 HANDLE UIHandler::wHnd = GetStdHandle(STD_OUTPUT_HANDLE);
 HANDLE UIHandler::rHnd = GetStdHandle(STD_INPUT_HANDLE);
+bool UIHandler::fullscreen = false;
 
 int UIHandler::DodajWarstweUI(Rysunek& _rWarstwa, string _indeksPola)
 {
@@ -250,8 +251,9 @@ int UIHandler::Init(Plansza* _plansza)
 	return 0;
 }
 
-void UIHandler::PrzelaczFullscreen(bool _fullscreen) {
-	if (_fullscreen) {
+void UIHandler::PrzelaczFullscreen() {
+	fullscreen = !fullscreen;
+	if (fullscreen) {
 		SetConsoleDisplayMode(GetStdHandle(STD_OUTPUT_HANDLE), CONSOLE_FULLSCREEN_MODE, pConsoleSize);
 	}
 	else {
