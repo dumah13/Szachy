@@ -17,7 +17,7 @@ class HandlerGry
 	int iIloscBotow = 0;
 	int iLiczbaRuchow = 0;
 	int iLiczbaRuchowPrzeciwnika = 0;
-	Figura* enPassant = nullptr;
+	Wektor enPassant = {-1,-1};
 	bool bWyswietlonyInterfejs = false;
 	bool bSzach = false;
 public:
@@ -27,8 +27,8 @@ public:
 	Gracz* GetGracz(int _indeks) { return gGracze[_indeks]; }
 
 	Wektor WykonajRuch(Ruch* _pRuch, bool _widoczne = true);
-	void SymulujRuch(Ruch* _pRuch);
-	void CofnijRuch();
+	void SymulujRuch(Ruch* _pRuch, bool _sprawdzLegalnosc = true);
+	void CofnijRuch(bool _sprawdzLegalnosc = true);
 	void InicjalizujGre(int _iIloscBotow, int kolorGracza = 0);
 	int GetLiczbaRuchow() { return iLiczbaRuchow; }
 	int GetLiczbaRuchowPrzeciwnika() { return iLiczbaRuchowPrzeciwnika; }
@@ -40,7 +40,7 @@ public:
 	void WypiszDaneRuchu(Ruch* _ruch, ostream& _os = cout);
 	void SprawdzLegalneRuchyKrola(int _iKolorGracza);
 	void SprawdzLegalneRuchy(int _iKolorGracza);
-	int SprawdzSzach();
+	int SprawdzSzach(int _iKolorGracza);
 	int SprawdzMat();
 	int ZakonczGre();
 	string KonwertujIndeks(Wektor _we);

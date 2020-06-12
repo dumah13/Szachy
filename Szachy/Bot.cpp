@@ -2,9 +2,10 @@
 #include <limits>
 #include "HandlerGry.h"
 #include <Windows.h>
+#include "DodatkoweFunkcje.h"
 
 Ruch* Bot::WybierzRuch() {
-	Sleep(500);
+	Sleep(100);
 	return mozliweRuchy[NegaMax(iGlebokoscPrzeszukiwania)];
 }
 
@@ -24,12 +25,15 @@ int Bot::NegaMax(int _glebokosc) {
 			max = wartosc;
 			nrRuchu = i;
 		}
+		else if (wartosc == max) {
+			nrRuchu = losowaPrzedzial<float>(0.0f, 1.0f) < 0.5f ? i : nrRuchu;
+		}
 	
 		GetHandlerGry()->CofnijRuch();
 	}
 	if (_glebokosc == iGlebokoscPrzeszukiwania)
 	{
-		cout << "Max: " << max << "nr: " << nrRuchu << endl;
+		//cout << "Max: " << max << "nr: " << nrRuchu << endl;
 		return nrRuchu;
 	}
 	return max;

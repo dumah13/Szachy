@@ -7,7 +7,7 @@ class HandlerGry;
 class Gracz
 {
 public:
-	static const int wagaMobilnosci = 1;
+	static const int wagaMobilnosci = 2;
 private:
 
 	int iKolor;

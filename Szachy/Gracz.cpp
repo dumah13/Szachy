@@ -159,7 +159,7 @@ Ruch* Gracz::WybierzRuch()
 				continue;
 			}
 			else if (indeksPola == "c") {
-				handlerGry->CofnijRuch();
+				handlerGry->CofnijRuch(false);
 				system("cls");
 				handlerGry->RysujPlansze();
 				handlerGry->WyswietlInterfejs();

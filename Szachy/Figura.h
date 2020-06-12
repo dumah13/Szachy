@@ -52,6 +52,7 @@ public:
 	void SetPozycjaStartowa(int _nowa);
 	TypFigury GetTyp();
 	vector<Ruch>& GetRuchy();
+	void SetRuchy(vector<Ruch> _ruchy) { mozliweRuchy = _ruchy; }
 	void Rysuj(Rysunek& _rPole);
 	
 	virtual void WykonajRuch() {};

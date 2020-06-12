@@ -189,6 +189,7 @@ void Figura::sprawdzRuchy(int _pozycja[2], Plansza& _plansza) {
 				else {
 					typZbitej = docelowe->GetFigura()->GetTyp();
 					_zbicie = true;
+					_pozStartZbitej = docelowe->GetFigura()->iPozycjaStartowa;
 				}
 			}
 			
@@ -231,6 +232,9 @@ void Figura::sprawdzRuchy(int _pozycja[2], Plansza& _plansza) {
 
 						if (k == 1) {
 							enPassant = 1;
+							if (!_plansza[x][y].Puste()) {
+								continue;
+							}
 							x -= sgn(iTypFigury);
 						}
 
