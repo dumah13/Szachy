@@ -3,6 +3,8 @@
 #include "Bot.h"
 #include "UIHandler.h"
 #include <iomanip>
+#include "Logger.h";
+#include <sstream>;
 
 HandlerGry::HandlerGry(int _iIloscBotow, Plansza* _plansza, int kolorGracza) :
 	gGracze{},
@@ -813,6 +815,24 @@ int HandlerGry::ZakonczGre()
 	int powtorz = false;
 
 	powtorz = decyzja == "y" ? 1 : decyzja == "yes" ? 1 : 0;
+
+	defaultLogger.GetLogi().clear();
+	
+	string wiadomosc = "Zwyciezca: " ;
+	wiadomosc += iZwyciezca == 1 ? "czarne! " : "biale! ";
+	wiadomosc += '\n';
+	defaultLogger.Log(wiadomosc);
+
+	for (int i = 0; i < historiaRuchow.size(); i++) {
+		stringstream ss;
+		WypiszDaneRuchu(&historiaRuchow[i], ss);
+
+		string log;
+		getline(ss, log);
+		log += '\n';
+		defaultLogger.Log(log);
+	}
+	defaultLogger.ZapiszLogi();
 
 	return powtorz;
 }

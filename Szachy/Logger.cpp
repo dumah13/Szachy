@@ -14,14 +14,14 @@ void Logger::Log(string _sWiadomosc) {
 	string log = to_string(++iterator) + bufor + _sWiadomosc;
 
 	vsLista.push_back(log);
-	cout << vsLista.back() << endl;
+	//cout << vsLista.back() << endl;
 }
 
 string Logger::GetOstatniLog() {
 	return vsLista.back();
 }
 
-vector<string> Logger::GetLogi() {
+vector<string>& Logger::GetLogi() {
 	return vsLista;
 }
 
@@ -31,13 +31,16 @@ void Logger::ZapiszLogi(string _sNazwaPliku) {
 	char str[26];
 	ctime_s(str, sizeof(str), &timer);
 	string temp = str;
+	//temp.erase(0, 1);
 	replace(temp.begin(), temp.end(), ' ', '_');
-	replace(temp.begin(), temp.end(), ':', '_');
+	replace(temp.begin(), temp.end(), ':', '-');
 	temp.erase(temp.find('\n'));
 
-	string nazwa = _sNazwaPliku + temp.substr(3,16) + ".txt";
+	//temp.erase(temp.size() - 2, 2);
+
+	string nazwa = _sNazwaPliku + temp.substr(3,22) + ".txt";
 	ofstream plik;
-	plik.open(nazwa);
+	plik.open(nazwa, ofstream::out);
 	 
 	for (int i = 0; i < (int)vsLista.size(); i++)
 	{

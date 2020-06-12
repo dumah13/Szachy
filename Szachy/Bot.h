@@ -7,7 +7,7 @@ class Bot :
 {
 private:
 	vector<Ruch*> mozliweRuchy;
-	int iGlebokoscPrzeszukiwania = 2;
+	int iGlebokoscPrzeszukiwania = 1;
 public:
 	Bot(Plansza* _paPlansza, HandlerGry* _handlerGry, int _iKolor, int _iWartoscPlanszy = 0): Gracz(_paPlansza, _handlerGry, _iKolor, _iWartoscPlanszy, false) {  };
 

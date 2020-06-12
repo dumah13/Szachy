@@ -1,0 +1,12 @@
+1:   Zwyciezca: biale! 
+
+2:   E2 -> E4      Pion           Podwojny
+
+3:   B7 -> B5      Pion           Podwojny
+
+4:   D1 -> H5     Krolowa               
+
+5:   B8 -> A6       Kon               
+
+6:   D2 -> D4      Pion           Podwojny
+

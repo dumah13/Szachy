@@ -11,7 +11,7 @@ private:
 public:
 	void Log(string _sWiadomosc);
 	string GetOstatniLog();
-	vector<string> GetLogi();
-	void ZapiszLogi(string _sNazwaPliku = "\\logs\\log");
+	vector<string>& GetLogi();
+	void ZapiszLogi(string _sNazwaPliku = ".\\logs\\log");
 }  static defaultLogger;
 
