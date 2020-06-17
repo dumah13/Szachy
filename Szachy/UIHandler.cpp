@@ -167,7 +167,9 @@ string UIHandler::WyswietlZapytanie(string _komunikat, int _iloscZnakow, COORD _
 
 	SetConsoleCursorPosition(wHnd, pozycjaKursora);
 	string input = wczytajWartosc<string>(cin);
-
+	uiHandler.PrzesunKursor(0, -1);
+	cout << CZYSCLINIE;
+	uiHandler.PrzesunKursor(0, 1);
 
 	GetConsoleScreenBufferInfo(wHnd, &bufferInfo);
 	SetConsoleCursorPosition(wHnd, { point.X, point.Y});

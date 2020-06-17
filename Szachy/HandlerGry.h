@@ -17,9 +17,12 @@ class HandlerGry
 	int iIloscBotow = 0;
 	int iLiczbaRuchow = 0;
 	int iLiczbaRuchowPrzeciwnika = 0;
+	int iGlebokoscPrzeszukiwania = 1;
 	Wektor enPassant = {-1,-1};
 	bool bWyswietlonyInterfejs = false;
 	bool bSzach = false;
+	int iLiczbaSzachujacych = 0;
+	bool bMat = false;
 public:
 	HandlerGry(int _iIloscBotow = 0, Plansza* _plansza = nullptr, int kolorGracza = 0);
 	~HandlerGry();
@@ -32,6 +35,12 @@ public:
 	void InicjalizujGre(int _iIloscBotow, int kolorGracza = 0);
 	int GetLiczbaRuchow() { return iLiczbaRuchow; }
 	int GetLiczbaRuchowPrzeciwnika() { return iLiczbaRuchowPrzeciwnika; }
+	int GetTuraGracza() { return iTuraGracza; }
+	int GetGlebokoscPrzeszukiwania() { return iGlebokoscPrzeszukiwania; }
+	int GetLiczbaSzachujacych() { return iLiczbaSzachujacych; }
+	bool GetSzach() { return bSzach; }
+	bool GetMat() { return bMat; }
+	void SetGlebokosc(int _nowaGlebokosc) { iGlebokoscPrzeszukiwania = _nowaGlebokosc; }
 	void RysujPlansze();
 	int WykonajTure();
 	void WyczyscInterfejs();
@@ -43,6 +52,7 @@ public:
 	int SprawdzSzach(int _iKolorGracza);
 	int SprawdzMat();
 	int ZakonczGre();
+	void ZmienTureGracza();
 	string KonwertujIndeks(Wektor _we);
 	Wektor KonwertujIndeks(string _s);
 };

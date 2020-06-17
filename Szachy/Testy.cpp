@@ -44,6 +44,11 @@ int main(int argc, char* argv[])
 			int iloscBotow = 0;
 			int stanTury;
 			int kolorGracza = 0;
+			stringstream komunikat;
+			stringstream tekst;
+			COORD punkt = { 40,10 };
+			string sKomunikat;
+			int nowaGlebokosc;
 
 			while (kontynuuj) {
 
@@ -57,9 +62,11 @@ int main(int argc, char* argv[])
 					cout << setw(30) << "" << "Witaj!" << endl << endl << setw(30) << "" << "Wpisz:" << endl;
 					cout << setw(20) << "" << "1 - aby rozpoczac gre" << endl;
 					cout << setw(20) << "" << "2 - aby przelaczyc pelny ekran" << endl;
-					cout << setw(20) << "" << "3 - aby wyjsc z programu" << endl;
+					cout << setw(20) << "" << "3 - aby zmienic glebokosc przeszukiwania bota" << endl;
+					cout << setw(20) << "" << "4 - aby wyjsc z programu" << endl;
 
-					krokProgramu = wczytajWartosc<int>(cin, 1, 3);
+
+					krokProgramu = wczytajWartosc<int>(cin, 1, 4);
 					break;
 				case 1:
 					system("cls");
@@ -113,6 +120,25 @@ int main(int argc, char* argv[])
 					krokProgramu = 0;
 					break;
 				case 3:
+					komunikat.clear();
+					tekst.clear();
+					komunikat << "Obecna glebokosc przeszukiwania: ";
+					komunikat << handlerGry.GetGlebokoscPrzeszukiwania();
+					komunikat << ". Podaj nowa glebokosc z zakresu od 1 do 10";
+					nowaGlebokosc = -1;
+					do
+					{
+						tekst.clear();
+						getline(komunikat, sKomunikat);
+						tekst << uiHandler.WyswietlZapytanie(sKomunikat, 1,punkt, true);
+						tekst >> nowaGlebokosc;
+
+					} while (nowaGlebokosc > 10 || nowaGlebokosc < 1);
+
+					handlerGry.SetGlebokosc(nowaGlebokosc);
+					krokProgramu = 0;
+					break;
+				case 4:
 				case 100:
 					kontynuuj = false;
 					break;

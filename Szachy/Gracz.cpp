@@ -40,7 +40,6 @@ int Gracz::EwaluujPlansze() {
 	int S = 0;
 	int W = 0;
 	int P = 0;
-	int kolor = iKolor == 0 ? 1 : -1;
 
 	for (int i = 0; i < paPlansza->iWymiaryPlanszy; i++) {
 		for (int j = 0; j < paPlansza->iWymiaryPlanszy; j++) {
@@ -83,9 +82,40 @@ int Gracz::EwaluujPlansze() {
 	}
 
 	int wartoscMaterialu = H * 9 + W * 5 + S * 3 + G * 3 + P;
-	int wartoscMobilnosci = wagaMobilnosci * (handlerGry->GetLiczbaRuchow() * kolor + handlerGry->GetLiczbaRuchowPrzeciwnika() * kolor * -1);
+	int kolor = handlerGry->GetTuraGracza() == 0 ? 1 : -1;
+	int wartoscMobilnosci = wagaMobilnosci * (handlerGry->GetGracz(0)->GetRuchy().size() + handlerGry->GetGracz(1)->GetRuchy().size()*-1);
 
-	iWartoscPlanszy = wartoscMaterialu + wartoscMobilnosci;
+	iWartoscPlanszy = wartoscMaterialu*2 + wartoscMobilnosci;
+	if (GetHandlerGry()->GetSzach()) {
+		switch (GetHandlerGry()->GetLiczbaSzachujacych()) {
+		case 0:
+			break;
+		case 1:
+			iWartoscPlanszy += 2 * kolor * -1;
+			break;
+		case 2:
+			iWartoscPlanszy += 50 * kolor * -1;
+			break;
+		case 3:
+			iWartoscPlanszy += 75 * kolor * -1;
+			break;
+		case 4:
+			iWartoscPlanszy += 88 * kolor * -1;
+			break;
+		case 5:
+			iWartoscPlanszy += 94 * kolor * -1;
+			break;
+		case 6:
+			iWartoscPlanszy += 97 * kolor * -1;
+			break;
+		case 7:
+			iWartoscPlanszy += 99 * kolor * -1;
+			break;
+		}
+	}
+	if (GetHandlerGry()->GetMat()) {
+		iWartoscPlanszy = INT16_MAX*kolor*-1;
+	}
 	return iWartoscPlanszy;
 }
 
