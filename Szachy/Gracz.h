@@ -27,6 +27,7 @@ public:
 	HandlerGry* GetHandlerGry() { return handlerGry; }
 	int EwaluujPlansze();
 	void SetWartosc(int _nowa) { iWartoscPlanszy = _nowa; }
+	void SetPlansza(Plansza* _pPlansza) { paPlansza = _pPlansza; }
 	bool CzyLudzki() { return bLudzkiGracz; }
 	virtual Ruch* WybierzRuch();
 };

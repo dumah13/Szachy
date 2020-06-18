@@ -91,7 +91,7 @@ int Bot::Quiesce(int _alpha, int _beta) {
 	}
 	if (_alpha < stand_pat)
 		_alpha = stand_pat;
-	int BIG_DELTA = 9+8; // queen value
+	int BIG_DELTA = 9; // queen value
 
 
 

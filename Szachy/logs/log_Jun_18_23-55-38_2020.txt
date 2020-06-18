@@ -1,0 +1,134 @@
+175:   Zwyciezca: czarne! 
+
+176:   E2 -> E4      Pion           Podwojny
+
+177:   B8 -> C6       Kon               
+
+178:   D1 -> G4     Krolowa               
+
+179:   C6 -> B8       Kon               
+
+180:   F1 -> B5     Goniec               
+
+181:   B8 -> C6       Kon               
+
+182:   G4 -> H5     Krolowa               
+
+183:   C6 -> D4       Kon               
+
+184:   B5 -> C6     Goniec               
+
+185:   D4 -> F5       Kon               
+
+186:   C6 -> B5     Goniec               
+
+187:   F5 -> H4       Kon               
+
+188:   G2 -> G4      Pion           Podwojny
+
+189:   H4 -> G2       Kon               
+
+190:   E1 -> E2      Krol               
+
+191:   G8 -> H6       Kon               
+
+192:   G4 -> G6      Pion           Podwojny
+
+193:   H8 -> G8     Wieza               
+
+194:   B5 -> D3     Goniec               
+
+195:   H6 -> F5       Kon               
+
+196:   G6 -> H7      Pion Zbija: -Pion-     
+
+197:   F5 -> D4       Kon               
+
+198:   E2 -> D1      Krol               
+
+199:   D4 -> F3       Kon               
+
+200:   H5 -> H3     Krolowa               
+
+201:   G2 -> F4       Kon               
+
+202:   H3 -> D7     Krolowa Zbija: -Pion-     
+
+203:   E8 -> D7      Krol Zbija: -Krolowa-     
+
+204:   B1 -> C3       Kon               
+
+205:   A7 -> A5      Pion           Podwojny
+
+206:   A1 -> B1     Wieza               
+
+207:   A8 -> B8     Wieza               
+
+208:   B1 -> A1     Wieza               
+
+209:   C7 -> C5      Pion           Podwojny
+
+210:   A1 -> B1     Wieza               
+
+211:   F4 -> E2       Kon               
+
+212:   B1 -> A1     Wieza               
+
+213:   E2 -> D4       Kon               
+
+214:   A1 -> B1     Wieza               
+
+215:   D8 -> E8     Krolowa               
+
+216:   G1 -> H3       Kon               
+
+217:   F7 -> F5      Pion           Podwojny
+
+218:   B1 -> A1     Wieza               
+
+219:   E8 -> D8     Krolowa               
+
+220:   H7 -> H8 Awans Pion               
+
+221:   F3 -> E5       Kon               
+
+222:   H3 -> G5       Kon               
+
+223:   E5 -> G4       Kon               
+
+224:   H1 -> E1     Wieza               
+
+225:   G4 -> H2       Kon Zbija: -Pion-     
+
+226:   C3 -> B1       Kon               
+
+227:   D4 -> F3       Kon               
+
+228:   G5 -> H3       Kon               
+
+229:   H2 -> F1       Kon               
+
+230:   D3 -> B5     Goniec               
+
+231:   D7 -> C7      Krol               
+
+232:   H8 -> H5     Krolowa               
+
+233:   F3 -> E5       Kon               
+
+234:   E1 -> E2     Wieza               
+
+235:   E5 -> G4       Kon               
+
+236:   A2 -> A3      Pion               
+
+237:   F5 -> E4      Pion Zbija: -Pion-     
+
+238:   C2 -> C4      Pion           Podwojny
+
+239:   F1 -> D2       Kon Zbija: -Pion-     
+
+240:   B5 -> E8     Goniec               
+
+241:   E4 -> E3      Pion               
+

@@ -91,25 +91,25 @@ int Gracz::EwaluujPlansze() {
 		case 0:
 			break;
 		case 1:
-			iWartoscPlanszy += 2 * kolor * -1;
+			iWartoscPlanszy += 0 * kolor * -1;
 			break;
 		case 2:
-			iWartoscPlanszy += 50 * kolor * -1;
+			iWartoscPlanszy += 20 * kolor * -1;
 			break;
 		case 3:
-			iWartoscPlanszy += 75 * kolor * -1;
+			iWartoscPlanszy += 30 * kolor * -1;
 			break;
 		case 4:
-			iWartoscPlanszy += 88 * kolor * -1;
+			iWartoscPlanszy += 33 * kolor * -1;
 			break;
 		case 5:
-			iWartoscPlanszy += 94 * kolor * -1;
+			iWartoscPlanszy += 37 * kolor * -1;
 			break;
 		case 6:
-			iWartoscPlanszy += 97 * kolor * -1;
+			iWartoscPlanszy += 39 * kolor * -1;
 			break;
 		case 7:
-			iWartoscPlanszy += 99 * kolor * -1;
+			iWartoscPlanszy += 40 * kolor * -1;
 			break;
 		}
 	}

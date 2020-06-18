@@ -48,6 +48,9 @@
     <ClCompile Include="Bot.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
+    <ClCompile Include="AI.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Plansza.h">
@@ -83,5 +86,13 @@
     <ClInclude Include="Bot.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
+    <ClInclude Include="AI.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\..\opennn\opennn\Release\opennn.lib">
+      <Filter>Pliki zasobów</Filter>
+    </Library>
   </ItemGroup>
 </Project>

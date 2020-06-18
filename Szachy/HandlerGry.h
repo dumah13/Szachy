@@ -1,3 +1,4 @@
+#include "AI.h"
 #include "Gracz.h"
 #include "Ruch.h"
 #include <vector>
@@ -11,15 +12,18 @@ class HandlerGry
 	Plansza* pPlansza = nullptr;
 	vector<Ruch> historiaRuchow;
 	Gracz* gGracze[2];
+	AI* szkoloneAI;
 	int iTuraGracza = 0;
 	int iZwyciezca = 0;
 	int iLicznikTur = 0;
 	int iIloscBotow = 0;
+	int iIloscAI = 0;
 	int iLiczbaRuchow = 0;
 	int iLiczbaRuchowPrzeciwnika = 0;
 	int iGlebokoscPrzeszukiwania = 1;
 	Wektor enPassant = {-1,-1};
 	bool bWyswietlonyInterfejs = false;
+	bool bSzkolenieSieci = false;
 	bool bSzach = false;
 	int iLiczbaSzachujacych = 0;
 	bool bMat = false;
@@ -32,7 +36,7 @@ public:
 	Wektor WykonajRuch(Ruch* _pRuch, bool _widoczne = true);
 	void SymulujRuch(Ruch* _pRuch, bool _sprawdzLegalnosc = true);
 	void CofnijRuch(bool _sprawdzLegalnosc = true);
-	void InicjalizujGre(int _iIloscBotow, int kolorGracza = 0);
+	void InicjalizujGre(int _iIloscBotow, int _iIloscAI = 0, int kolorGracza = 0, bool _szkol = false);
 	int GetLiczbaRuchow() { return iLiczbaRuchow; }
 	int GetLiczbaRuchowPrzeciwnika() { return iLiczbaRuchowPrzeciwnika; }
 	int GetTuraGracza() { return iTuraGracza; }

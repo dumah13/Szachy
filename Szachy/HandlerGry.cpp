@@ -24,15 +24,18 @@ HandlerGry::HandlerGry(int _iIloscBotow, Plansza* _plansza, int kolorGracza) :
 			gGracze[i] = new Bot(pPlansza, this, i, 0, iGlebokoscPrzeszukiwania);
 		}
 	}
+
+	szkoloneAI = new AI(pPlansza, this, 0, 0, iGlebokoscPrzeszukiwania);
 }
 
 HandlerGry::~HandlerGry() {
 	for (int i=0; i < 2; i++) {
-		if (gGracze[i]) { delete gGracze[i]; }
+		if (gGracze[i] && gGracze[i] != szkoloneAI) { delete gGracze[i]; }
 	}
 	if (pPlansza) {
 		delete pPlansza;
 	}
+	delete szkoloneAI;
 }
 
 Wektor HandlerGry::WykonajRuch(Ruch* _pRuch, bool _widoczne)
@@ -315,14 +318,19 @@ void HandlerGry::CofnijRuch(bool _sprawdzLegalnosc) {
 	SprawdzMat();
 }
 
-void HandlerGry::InicjalizujGre(int _iIloscBotow, int _kolorGracza)
+void HandlerGry::InicjalizujGre(int _iIloscBotow, int _iIloscAI, int _kolorGracza, bool _szkol)
 {
+	iIloscAI = _iIloscAI;
+	bSzkolenieSieci = _szkol;
+
 	for (int i=0; i < 2; i++) {
-		if (gGracze[i]) { delete gGracze[i]; }
+		if (gGracze[i] && gGracze[i] != szkoloneAI) { delete gGracze[i]; }
 	}
 	if (pPlansza) {
 		delete pPlansza;
 	}
+
+	szkoloneAI->GetRuchy().clear();
 
 	bWyswietlonyInterfejs = false;
 	system("cls");
@@ -332,19 +340,28 @@ void HandlerGry::InicjalizujGre(int _iIloscBotow, int _kolorGracza)
 	pPlansza->wczytajUstawienie(ustawienieBialeDol);
 	pPlansza->RysujPlansze();
 	
+	szkoloneAI->SetPlansza(pPlansza);
+
 	uiHandler.Init(pPlansza);
 
-	int iloscLudzkichGraczy = 2 - _iIloscBotow;
+	int iloscLudzkichGraczy = 2 - _iIloscBotow - iIloscAI ;
 	if (iloscLudzkichGraczy == 1) {
 		gGracze[_kolorGracza] = new Gracz(pPlansza, this, _kolorGracza);
-		gGracze[1 - _kolorGracza] = new Bot(pPlansza, this, 1 - _kolorGracza);
+		if (iIloscAI == 0)
+			gGracze[1 - _kolorGracza] = new Bot(pPlansza, this, 1 - _kolorGracza);
+		else
+			gGracze[1 - _kolorGracza] = szkoloneAI;
 	}
 	else {
 		for (int i = 0; i < iloscLudzkichGraczy; i++) {
 			gGracze[i] = new Gracz(pPlansza, this, i);
 		}
 		for (int i = 1; i >= iloscLudzkichGraczy; i--) {
-			gGracze[i] = new Bot(pPlansza, this, i, 0, iGlebokoscPrzeszukiwania);
+			if(iIloscAI - 1 + i > 0){
+				gGracze[i] = szkoloneAI;
+			}
+			else
+				gGracze[i] = new Bot(pPlansza, this, i, 0, iGlebokoscPrzeszukiwania);
 		}
 	}
 
@@ -392,25 +409,25 @@ int HandlerGry::WykonajTure()
 	gGracze[iTuraGracza]->GetRuchy().clear();
 	gGracze[1 - iTuraGracza]->GetRuchy().clear();
 
-		for (int i = 0; i < pPlansza->iWymiaryPlanszy; i++) {
-			for (int j = 0; j < pPlansza->iWymiaryPlanszy; j++) {
-				if (!(*pPlansza)[i][j].Puste())
+	for (int i = 0; i < pPlansza->iWymiaryPlanszy; i++) {
+		for (int j = 0; j < pPlansza->iWymiaryPlanszy; j++) {
+			if (!(*pPlansza)[i][j].Puste())
+			{
+				if (sgn((int)(*pPlansza)[i][j].GetFigura()->GetTyp()) == kolor)
 				{
-					if (sgn((int)(*pPlansza)[i][j].GetFigura()->GetTyp()) == kolor)
-					{
-						for (int k = 0; k < (*pPlansza)[i][j].GetFigura()->GetRuchy().size(); k++) {
-							gGracze[iTuraGracza]->GetRuchy().push_back(&(*pPlansza)[i][j].GetFigura()->GetRuchy()[k]);
-						}
+					for (int k = 0; k < (*pPlansza)[i][j].GetFigura()->GetRuchy().size(); k++) {
+						gGracze[iTuraGracza]->GetRuchy().push_back(&(*pPlansza)[i][j].GetFigura()->GetRuchy()[k]);
 					}
-					else {
-						for (int k = 0; k < (*pPlansza)[i][j].GetFigura()->GetRuchy().size(); k++) {
-							gGracze[1 - iTuraGracza]->GetRuchy().push_back(&(*pPlansza)[i][j].GetFigura()->GetRuchy()[k]);
-						}
+				}
+				else {
+					for (int k = 0; k < (*pPlansza)[i][j].GetFigura()->GetRuchy().size(); k++) {
+						gGracze[1 - iTuraGracza]->GetRuchy().push_back(&(*pPlansza)[i][j].GetFigura()->GetRuchy()[k]);
 					}
 				}
 			}
 		}
-	
+	}
+
 	SprawdzSzach(iTuraGracza);
 
 	if (SprawdzMat()) {
@@ -432,13 +449,29 @@ int HandlerGry::WykonajTure()
 	}
 
 	Ruch* ruch = gGracze[iTuraGracza]->WybierzRuch();
-
+	int nrRuchu = 0;
 
 	if (ruch == nullptr) {
 		return ZakonczGre();
 		//return -1;
 	}
 
+	if (bSzkolenieSieci) {
+
+		szkoloneAI->GetRuchy().clear();
+		for (int j = 0; j < gGracze[iTuraGracza]->GetRuchy().size(); j++) {
+
+			if (ruch == gGracze[iTuraGracza]->GetRuchy()[j]) {
+				nrRuchu = j;
+			}
+
+			szkoloneAI->GetRuchy().push_back(gGracze[iTuraGracza]->GetRuchy()[j]);
+		}
+
+
+		szkoloneAI->SzkolSiec(nrRuchu);
+		ruch = gGracze[iTuraGracza]->GetRuchy()[nrRuchu];
+	}
 
 	WykonajRuch(ruch);
 
@@ -457,6 +490,13 @@ void HandlerGry::WyczyscInterfejs() {
 	cout << CZYSCLINIE;
 	uiHandler.PrzesunKursor(0, -1);
 	cout << CZYSCLINIE;
+	/*if (bSzkolenieSieci)
+	{
+		for (int i = 0; i < 19; i++) {
+			uiHandler.PrzesunKursor(0, -1);
+			cout << CZYSCLINIE;
+		}
+	}*/
 }
 
 void HandlerGry::WyswietlInterfejs()

@@ -1,0 +1,62 @@
+59:   Zwyciezca: czarne! 
+
+60:   A2 -> A4      Pion           Podwojny
+
+61:   A7 -> A6      Pion               
+
+62:   A1 -> A3     Wieza               
+
+63:   B7 -> B5      Pion           Podwojny
+
+64:   A4 -> A5      Pion               
+
+65:   B8 -> C6       Kon               
+
+66:   D2 -> D3      Pion               
+
+67:   C6 -> E5       Kon               
+
+68:   A3 -> B3     Wieza               
+
+69:   E5 -> G6       Kon               
+
+70:   B3 -> B5     Wieza Zbija: -Pion-     
+
+71:   A6 -> B5      Pion Zbija: -Wieza-     
+
+72:   B1 -> A3       Kon               
+
+73:   C8 -> B7     Goniec               
+
+74:   A3 -> B5       Kon Zbija: -Pion-     
+
+75:   B7 -> C8     Goniec               
+
+76:   B5 -> C7       Kon Zbija: -Pion-     
+
+77:   D8 -> C7     Krolowa Zbija: -Kon-     
+
+78:   D1 -> D2     Krolowa               
+
+79:   C7 -> D8     Krolowa               
+
+80:   G1 -> H3       Kon               
+
+81:   A8 -> A5     Wieza Zbija: -Pion-     
+
+82:   D2 -> A5     Krolowa Zbija: -Wieza-     
+
+83:   D8 -> A5     Krolowa Zbija: -Krolowa-     
+
+84:   C1 -> D2     Goniec               
+
+85:   A5 -> H5     Krolowa               
+
+86:   E2 -> E4      Pion           Podwojny
+
+87:   H5 -> E2     Krolowa               
+
+88:   E1 -> E2      Krol Zbija: -Krolowa-     
+
+89:   C8 -> B7     Goniec               
+

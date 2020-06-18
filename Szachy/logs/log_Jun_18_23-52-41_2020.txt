@@ -1,0 +1,116 @@
+117:   Zwyciezca: biale! 
+
+118:   E2 -> E4      Pion           Podwojny
+
+119:   E7 -> E6      Pion               
+
+120:   D1 -> H5     Krolowa               
+
+121:   D7 -> D5      Pion           Podwojny
+
+122:   F1 -> B5     Goniec               
+
+123:   C7 -> C6      Pion               
+
+124:   D2 -> D4      Pion           Podwojny
+
+125:   F8 -> B4     Goniec               
+
+126:   E1 -> F1      Krol               
+
+127:   B4 -> C5     Goniec               
+
+128:   B1 -> C3       Kon               
+
+129:   C5 -> D6     Goniec               
+
+130:   C1 -> D2     Goniec               
+
+131:   D8 -> F6     Krolowa               
+
+132:   A1 -> B1     Wieza               
+
+133:   F6 -> G5     Krolowa               
+
+134:   D2 -> G5     Goniec Zbija: -Krolowa-     
+
+135:   G8 -> H6       Kon               
+
+136:   E4 -> E5      Pion               
+
+137:   H6 -> G4       Kon               
+
+138:   H5 -> F7     Krolowa Zbija: -Pion-     
+
+139:   E8 -> F7      Krol Zbija: -Krolowa-     
+
+140:   F1 -> E2      Krol               
+
+141:   B8 -> D7       Kon               
+
+142:   G1 -> F3       Kon               
+
+143:   G4 -> E3       Kon               
+
+144:   B1 -> A1     Wieza               
+
+145:   A7 -> A5      Pion           Podwojny
+
+146:   B5 -> D3     Goniec               
+
+147:   D6 -> E7     Goniec               
+
+148:   G5 -> E3     Goniec Zbija: -Kon-     
+
+149:   B7 -> B5      Pion           Podwojny
+
+150:   E3 -> F4     Goniec               
+
+151:   C8 -> B7     Goniec               
+
+152:   B2 -> B3      Pion               
+
+153:   G7 -> G6      Pion               
+
+154:   F4 -> H6     Goniec               
+
+155:   E7 -> G5     Goniec               
+
+156:   F3 -> G5       Kon Zbija: -Goniec-     
+
+157:   F7 -> G8      Krol               
+
+158:   G5 -> E6       Kon Zbija: -Pion-     
+
+159:   G8 -> F7      Krol               
+
+160:   E6 -> G5       Kon               
+
+161:   F7 -> G8      Krol               
+
+162:   F2 -> F4      Pion           Podwojny
+
+163:   A8 -> F8     Wieza               
+
+164:   E5 -> E6      Pion               
+
+165:   D7 -> E5       Kon               
+
+166:   D4 -> E5      Pion Zbija: -Kon-     
+
+167:   F8 -> F4     Wieza Zbija: -Pion-     
+
+168:   A2 -> A3      Pion               
+
+169:   B7 -> C8     Goniec               
+
+170:   E2 -> E3      Krol               
+
+171:   D5 -> D4      Pion               
+
+172:   E3 -> D2      Krol               
+
+173:   F4 -> F7     Wieza               
+
+174:   E6 -> F7      Pion Zbija: -Wieza-     
+

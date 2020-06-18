@@ -11,6 +11,7 @@
 #include "DodatkoweFunkcje.h"
 #include <iomanip>
 
+
 using namespace std;
 
 int main(int argc, char* argv[])
@@ -23,6 +24,8 @@ int main(int argc, char* argv[])
 	HandlerGry handlerGry;
 	int blad = 0;
 
+	NeuralNetwork neural_network;
+	
 	while (kontynuuj)
 	{
 		try
@@ -44,11 +47,13 @@ int main(int argc, char* argv[])
 			int iloscBotow = 0;
 			int stanTury;
 			int kolorGracza = 0;
+			int szkolSiec = 0;
 			stringstream komunikat;
 			stringstream tekst;
 			COORD punkt = { 40,10 };
 			string sKomunikat;
 			int nowaGlebokosc;
+			int iloscAI = 0;
 
 			while (kontynuuj) {
 
@@ -62,10 +67,11 @@ int main(int argc, char* argv[])
 					cout << setw(30) << "" << "Witaj!" << endl << endl << setw(30) << "" << "Wpisz:" << endl;
 					cout << setw(20) << "" << "1 - aby rozpoczac gre" << endl;
 					cout << setw(20) << "" << "2 - aby przelaczyc pelny ekran" << endl;
-					cout << setw(20) << "" << "3 - aby zmienic glebokosc przeszukiwania bota" << endl;
+					cout << setw(20) << "" << "3 - aby zmienic glebokosc przeszukiwania Bota" << endl;
 					cout << setw(20) << "" << "4 - aby wyjsc z programu" << endl;
 
-
+					iloscAI = 0;
+					szkolSiec = 0;
 					krokProgramu = wczytajWartosc<int>(cin, 1, 4);
 					break;
 				case 1:
@@ -77,33 +83,103 @@ int main(int argc, char* argv[])
 					cout << setw(20) << "" << "1 - Czlowiek vs Bot" << endl;
 					cout << setw(20) << "" << "2 - Czlowiek vs Czlowiek" << endl;
 					cout << setw(20) << "" << "3 - Bot vs Bot" << endl;
+					cout << setw(20) << "" << "4 - Aby powrocic do menu" << endl;
 
-					rodzajGry = wczytajWartosc<int>(cin, 1, 3);
+					rodzajGry = wczytajWartosc<int>(cin, 1, 4);
 
 					iloscBotow = 0;
+					iloscAI = 0;
+					kolorGracza = 0;
+					szkolSiec = 0;
 
 					switch (rodzajGry) {
 					case 1:
-						iloscBotow = 1;
+
 
 						cout << setw(30) << "" << "Wybierz kolor:" << endl;
 						cout << setw(20) << "" << "1 - Biale" << endl;
 						cout << setw(20) << "" << "2 - Czarne" << endl;
+						cout << setw(20) << "" << "3 - Aby cofnac" << endl;
 
-						kolorGracza = wczytajWartosc<int>(cin, 1, 2) - 1;
+						kolorGracza = wczytajWartosc<int>(cin, 1, 3) - 1;
+
+						if (kolorGracza == 2) {
+							krokProgramu = 1;
+							break;
+						}
+
+						cout << setw(30) << "" << "Czy bot ma byc AI?" << endl;
+						cout << setw(20) << "" << "1 - Nie" << endl;
+						cout << setw(20) << "" << "2 - Tak" << endl;
+						cout << setw(20) << "" << "3 - Aby cofnac" << endl;
+
+						iloscAI = wczytajWartosc<int>(cin, 1, 3) - 1;
+
+						if (iloscAI == 2) {
+							krokProgramu = 1;
+							break;
+						}
+
+						iloscBotow = 1 - iloscAI;
+
 						break;
 					case 2:
-
+						iloscAI = 0;
 						iloscBotow = 0;
+
+						cout << setw(30) << "" << "Czy chcesz szkolic siec?" << endl;
+						cout << setw(20) << "" << "1 - Nie" << endl;
+						cout << setw(20) << "" << "2 - Tak" << endl;
+						cout << setw(20) << "" << "3 - Aby cofnac" << endl;
+
+						szkolSiec = wczytajWartosc<int>(cin, 1, 3) - 1;
+
+						if (szkolSiec == 2) {
+							krokProgramu = 1;
+							break;
+						}
 						break;
 					case 3:
-						iloscBotow = 2;
+						cout << setw(30) << "" << "Czy jeden z botow ma byc AI?" << endl;
+						cout << setw(20) << "" << "1 - Nie" << endl;
+						cout << setw(20) << "" << "2 - Tak" << endl;
+						cout << setw(20) << "" << "3 - Aby cofnac" << endl;
+
+						iloscAI = wczytajWartosc<int>(cin, 1, 3) - 1;
+
+						if (iloscAI == 2) {
+							krokProgramu = 1;
+							break;
+						}
+
+						iloscBotow = 2 - iloscAI;
+
+						if (!iloscAI) {
+							cout << setw(30) << "" << "Czy chcesz szkolic siec?" << endl;
+							cout << setw(20) << "" << "1 - Nie" << endl;
+							cout << setw(20) << "" << "2 - Tak" << endl;
+							cout << setw(20) << "" << "3 - Aby cofnac" << endl;
+
+							if (szkolSiec == 2) {
+								krokProgramu = 1;
+								break;
+							}
+
+							szkolSiec = wczytajWartosc<int>(cin, 1, 3) - 1;
+						}
+						break;
+					case 4:
+						krokProgramu = 0;
+						break;
+					}
+
+					if (krokProgramu == 0 || iloscAI == 2 || szkolSiec == 2 || kolorGracza == 2) {
 						break;
 					}
 
 					do
 					{
-						handlerGry.InicjalizujGre(iloscBotow, kolorGracza);
+						handlerGry.InicjalizujGre(iloscBotow, iloscAI, kolorGracza, szkolSiec);
 
 						do {
 							stanTury = handlerGry.WykonajTure();
