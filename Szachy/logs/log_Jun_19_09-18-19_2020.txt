@@ -1,0 +1,400 @@
+59:   Zwyciezca: biale! 
+
+60:   E2 -> E4      Pion           Podwojny
+
+61:   E7 -> E6      Pion               
+
+62:   D1 -> G4     Krolowa               
+
+63:   G8 -> H6       Kon               
+
+64:   G4 -> H5     Krolowa               
+
+65:   H8 -> G8     Wieza               
+
+66:   D2 -> D4      Pion           Podwojny
+
+67:   H6 -> F5       Kon               
+
+68:   E1 -> E2      Krol               
+
+69:   F5 -> G3       Kon               
+
+70:   H2 -> G3      Pion Zbija: -Kon-     
+
+71:   E6 -> E5      Pion               
+
+72:   D4 -> D5      Pion               
+
+73:   D7 -> D6      Pion               
+
+74:   E2 -> E1      Krol               
+
+75:   B8 -> A6       Kon               
+
+76:   F1 -> B5     Goniec               
+
+77:   C7 -> C6      Pion               
+
+78:   C1 -> G5     Goniec               
+
+79:   A6 -> C7       Kon               
+
+80:   G5 -> D8     Goniec Zbija: -Krolowa-     
+
+81:   B7 -> B6      Pion               
+
+82:   E1 -> E2      Krol               
+
+83:   F8 -> E7     Goniec               
+
+84:   G1 -> F3       Kon               
+
+85:   E7 -> H4     Goniec               
+
+86:   H5 -> H6     Krolowa               
+
+87:   G8 -> F8     Wieza               
+
+88:   B1 -> A3       Kon               
+
+89:   F7 -> F6      Pion               
+
+90:   H1 -> H3     Wieza               
+
+91:   H4 -> G5     Goniec               
+
+92:   H6 -> G7     Krolowa Zbija: -Pion-     
+
+93:   C6 -> B5      Pion Zbija: -Goniec-     
+
+94:   C2 -> C4      Pion           Podwojny
+
+95:   C8 -> G4     Goniec               
+
+96:   G7 -> F8     Krolowa Zbija: -Wieza-     
+
+97:   E8 -> F8      Krol Zbija: -Krolowa-     
+
+98:   E2 -> D1      Krol               
+
+99:   A7 -> A6      Pion               
+
+100:   D8 -> E7     Goniec               
+
+101:   F8 -> F7      Krol               
+
+102:   H3 -> H7     Wieza Zbija: -Pion-     
+
+103:   F7 -> E8      Krol               
+
+104:   D1 -> E1      Krol               
+
+105:   A6 -> A5      Pion               
+
+106:   A3 -> C2       Kon               
+
+107:   A5 -> A4      Pion               
+
+108:   A1 -> D1     Wieza               
+
+109:   B5 -> B4      Pion               
+
+110:   E1 -> F1      Krol               
+
+111:   A4 -> A3      Pion               
+
+112:   E7 -> D6     Goniec Zbija: -Pion-     
+
+113:   A3 -> B2      Pion Zbija: -Pion-     
+
+114:   H7 -> H8     Wieza               
+
+115:   E8 -> D7      Krol               
+
+116:   D1 -> B1     Wieza               
+
+117:   F6 -> F5      Pion               
+
+118:   A2 -> A4      Pion           Podwojny
+
+119:   F5 -> E4      Pion Zbija: -Pion-     
+
+120:   D6 -> E7     Goniec               
+
+121:   B4 -> B3      Pion               
+
+122:   A4 -> A5      Pion               
+
+123:   B6 -> A5      Pion Zbija: -Pion-     
+
+124:   H8 -> G8     Wieza               
+
+125:   C7 -> A6       Kon               
+
+126:   G8 -> H8     Wieza               
+
+127:   G4 -> H3     Goniec               
+
+128:   C2 -> A3       Kon               
+
+129:   H3 -> F5     Goniec               
+
+130:   F3 -> G5       Kon Zbija: -Goniec-     
+
+131:   F5 -> E6     Goniec               
+
+132:   G5 -> E4       Kon Zbija: -Pion-     
+
+133:   A6 -> C7       Kon               
+
+134:   E4 -> C3       Kon               
+
+135:   E6 -> D5     Goniec Zbija: -Pion-     
+
+136:   A3 -> C2       Kon               
+
+137:   D5 -> B7     Goniec               
+
+138:   B1 -> B2     Wieza Zbija: -Pion-     
+
+139:   B7 -> C6     Goniec               
+
+140:   H8 -> D8     Wieza               
+
+141:   A8 -> D8     Wieza Zbija: -Wieza-     
+
+142:   B2 -> B3     Wieza Zbija: -Pion-     
+
+143:   D8 -> B8     Wieza               
+
+144:   B3 -> B8     Wieza Zbija: -Wieza-     
+
+145:   C7 -> E6       Kon               
+
+146:   F2 -> F4      Pion           Podwojny
+
+147:   E5 -> F4      Pion Zbija: -Pion-     
+
+148:   G3 -> G4      Pion               
+
+149:   E6 -> G7       Kon               
+
+150:   G4 -> G5      Pion               
+
+151:   C6 -> B7     Goniec               
+
+152:   B8 -> B7     Wieza Zbija: -Goniec-     
+
+153:   D7 -> C8      Krol               
+
+154:   B7 -> B6     Wieza               
+
+155:   G7 -> E6       Kon               
+
+156:   B6 -> C6     Wieza               
+
+157:   C8 -> B7      Krol               
+
+158:   F1 -> E2      Krol               
+
+159:   E6 -> G5       Kon Zbija: -Pion-     
+
+160:   C6 -> H6     Wieza               
+
+161:   G5 -> E6       Kon               
+
+162:   H6 -> H5     Wieza               
+
+163:   E6 -> C5       Kon               
+
+164:   H5 -> H6     Wieza               
+
+165:   B7 -> A8      Krol               
+
+166:   H6 -> B6     Wieza               
+
+167:   C5 -> E4       Kon               
+
+168:   C3 -> D5       Kon               
+
+169:   E4 -> G5       Kon               
+
+170:   D5 -> C7       Kon               
+
+171:   A8 -> A7      Krol               
+
+172:   B6 -> B3     Wieza               
+
+173:   G5 -> F3       Kon               
+
+174:   B3 -> B5     Wieza               
+
+175:   F3 -> G5       Kon               
+
+176:   C2 -> E3       Kon               
+
+177:   G5 -> F3       Kon               
+
+178:   B5 -> A5     Wieza Zbija: -Pion-     
+
+179:   A7 -> B6      Krol               
+
+180:   E2 -> D3      Krol               
+
+181:   F3 -> G5       Kon               
+
+182:   E7 -> B4     Goniec               
+
+183:   F4 -> E3      Pion Zbija: -Kon-     
+
+184:   C7 -> A8       Kon               
+
+185:   B6 -> B7      Krol               
+
+186:   A5 -> A1     Wieza               
+
+187:   B7 -> B8      Krol               
+
+188:   A8 -> B6       Kon               
+
+189:   G5 -> E6       Kon               
+
+190:   B4 -> D6     Goniec               
+
+191:   E6 -> C7       Kon               
+
+192:   D3 -> C2      Krol               
+
+193:   B8 -> B7      Krol               
+
+194:   C4 -> C5      Pion               
+
+195:   C7 -> E8       Kon               
+
+196:   D6 -> F4     Goniec               
+
+197:   E8 -> C7       Kon               
+
+198:   F4 -> E5     Goniec               
+
+199:   C7 -> E8       Kon               
+
+200:   B6 -> D5       Kon               
+
+201:   E8 -> G7       Kon               
+
+202:   A1 -> A4     Wieza               
+
+203:   G7 -> E6       Kon               
+
+204:   A4 -> B4     Wieza               
+
+205:   B7 -> A8      Krol               
+
+206:   C2 -> D1      Krol               
+
+207:   E6 -> G5       Kon               
+
+208:   D1 -> E2      Krol               
+
+209:   G5 -> E4       Kon               
+
+210:   B4 -> B8     Wieza               
+
+211:   A8 -> A7      Krol               
+
+212:   E2 -> F3      Krol               
+
+213:   E4 -> D2       Kon               
+
+214:   F3 -> G4      Krol               
+
+215:   D2 -> F3       Kon               
+
+216:   G4 -> F3      Krol Zbija: -Kon-     
+
+217:   E3 -> E2      Pion               
+
+218:   F3 -> E2      Krol Zbija: -Pion-     
+
+219:   A7 -> A6      Krol               
+
+220:   B8 -> B3     Wieza               
+
+221:   A6 -> A7      Krol               
+
+222:   E2 -> D1      Krol               
+
+223:   A7 -> A8      Krol               
+
+224:   D1 -> E2      Krol               
+
+225:   A8 -> A7      Krol               
+
+226:   E2 -> D1      Krol               
+
+227:   A7 -> A8      Krol               
+
+228:   D1 -> E2      Krol               
+
+229:   A8 -> A7      Krol               
+
+230:   E2 -> D1      Krol               
+
+231:   A7 -> A8      Krol               
+
+232:   D1 -> E2      Krol               
+
+233:   A8 -> A7      Krol               
+
+234:   E2 -> D1      Krol               
+
+235:   A7 -> A8      Krol               
+
+236:   D1 -> E2      Krol               
+
+237:   A8 -> A7      Krol               
+
+238:   E2 -> D1      Krol               
+
+239:   A7 -> A8      Krol               
+
+240:   D1 -> E2      Krol               
+
+241:   A8 -> A7      Krol               
+
+242:   E2 -> D1      Krol               
+
+243:   A7 -> A8      Krol               
+
+244:   D1 -> E2      Krol               
+
+245:   A8 -> A7      Krol               
+
+246:   E2 -> D1      Krol               
+
+247:   A7 -> A8      Krol               
+
+248:   D1 -> E2      Krol               
+
+249:   A8 -> A7      Krol               
+
+250:   E2 -> D1      Krol               
+
+251:   A7 -> A8      Krol               
+
+252:   D1 -> E2      Krol               
+
+253:   A8 -> A7      Krol               
+
+254:   E2 -> D1      Krol               
+
+255:   A7 -> A8      Krol               
+
+256:   D1 -> E2      Krol               
+
+257:   A8 -> A7      Krol               
+
+258:   E2 -> D1      Krol               
+

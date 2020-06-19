@@ -10,13 +10,15 @@
 #include "UIHandler.h"
 #include "DodatkoweFunkcje.h"
 #include <iomanip>
+#include <vld.h>
 
 
 using namespace std;
 
 int main(int argc, char* argv[])
 {
-	
+	VLDEnable();
+	VLDReportLeaks();
 	int krokProgramu = 0;
 	bool kontynuuj = true;
 	LPCWSTR tytul = L"conChess";
@@ -30,6 +32,7 @@ int main(int argc, char* argv[])
 	{
 		try
 		{
+			
 			vector<string> napis =
 			{
 				"                    ________   ___  ___   _______    ________    ________      ",
@@ -68,11 +71,13 @@ int main(int argc, char* argv[])
 					cout << setw(20) << "" << "1 - aby rozpoczac gre" << endl;
 					cout << setw(20) << "" << "2 - aby przelaczyc pelny ekran" << endl;
 					cout << setw(20) << "" << "3 - aby zmienic glebokosc przeszukiwania Bota" << endl;
-					cout << setw(20) << "" << "4 - aby wyjsc z programu" << endl;
+					cout << setw(20) << "" << "4 - aby zapisac wagi sieci" << endl;
+					cout << setw(20) << "" << "5 - aby wczytac wagi sieci" << endl;
+					cout << setw(20) << "" << "6 - aby wyjsc z programu" << endl;
 
 					iloscAI = 0;
 					szkolSiec = 0;
-					krokProgramu = wczytajWartosc<int>(cin, 1, 4);
+					krokProgramu = wczytajWartosc<int>(cin, 1, 6);
 					break;
 				case 1:
 					system("cls");
@@ -215,6 +220,14 @@ int main(int argc, char* argv[])
 					krokProgramu = 0;
 					break;
 				case 4:
+					handlerGry.ZapiszWagi();
+					krokProgramu = 0;
+					break;
+				case 5:
+					handlerGry.WczytajWagi();
+					krokProgramu = 0;
+					break;
+				case 6:
 				case 100:
 					kontynuuj = false;
 					break;

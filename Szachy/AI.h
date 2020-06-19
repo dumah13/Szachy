@@ -13,5 +13,7 @@ public:
 	~AI();
 	Ruch* WybierzRuch();
 	void SzkolSiec(int _wybranyRuch);
+	void ZapiszWagiDoPliku(string _nazwa = "wagi_sieci.txt");
+	void WczytajWagiZPliku(string _nazwa = "wagi_sieci.txt");
 };
 

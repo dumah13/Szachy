@@ -697,6 +697,15 @@ void HandlerGry::SprawdzLegalneRuchy(int _iKolorGracza){
 	}
 }
 
+void HandlerGry::ZapiszWagi() {
+	szkoloneAI->ZapiszWagiDoPliku();
+}
+
+void HandlerGry::WczytajWagi() {
+	szkoloneAI->WczytajWagiZPliku();
+}
+
+
 /*for (int k = 0; k < (*pPlansza)[i][j].GetFigura()->GetRuchy().size(); k++) {
 					vector<Figura*> zaktualizowaneFigury;
 					vector<Wektor> pozycjeFigur;

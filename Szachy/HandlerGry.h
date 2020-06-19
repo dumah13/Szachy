@@ -53,6 +53,8 @@ public:
 	void WypiszDaneRuchu(Ruch* _ruch, ostream& _os = cout);
 	void SprawdzLegalneRuchyKrola(int _iKolorGracza);
 	void SprawdzLegalneRuchy(int _iKolorGracza);
+	void ZapiszWagi();
+	void WczytajWagi();
 	int SprawdzSzach(int _iKolorGracza);
 	int SprawdzMat();
 	int ZakonczGre();

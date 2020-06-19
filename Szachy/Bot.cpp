@@ -6,7 +6,12 @@
 
 Ruch* Bot::WybierzRuch() {
 	Sleep(250);
-	return mozliweRuchy[AlphaBeta(INT16_MIN,INT16_MAX, iGlebokoscPrzeszukiwania)];
+
+	int nrRuchu = AlphaBeta(INT16_MIN, INT16_MAX, iGlebokoscPrzeszukiwania);
+	if (nrRuchu >= mozliweRuchy.size() || nrRuchu < 0) {
+		nrRuchu = 0;
+	}
+	return mozliweRuchy[nrRuchu];
 }
 
 int Bot::NegaMax(int _glebokosc) {

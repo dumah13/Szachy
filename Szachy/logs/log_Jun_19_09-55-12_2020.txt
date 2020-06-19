@@ -1,0 +1,400 @@
+59:   Zwyciezca: biale! 
+
+60:   E2 -> E4      Pion           Podwojny
+
+61:   A7 -> A5      Pion           Podwojny
+
+62:   D1 -> G4     Krolowa               
+
+63:   A8 -> A7     Wieza               
+
+64:   F1 -> B5     Goniec               
+
+65:   A7 -> A8     Wieza               
+
+66:   G4 -> H5     Krolowa               
+
+67:   A8 -> A7     Wieza               
+
+68:   D2 -> D3      Pion               
+
+69:   A7 -> A8     Wieza               
+
+70:   C1 -> E3     Goniec               
+
+71:   A8 -> A7     Wieza               
+
+72:   G1 -> E2       Kon               
+
+73:   A7 -> A8     Wieza               
+
+74:   F2 -> F3      Pion               
+
+75:   A8 -> A7     Wieza               
+
+76:   B1 -> A3       Kon               
+
+77:   A7 -> A8     Wieza               
+
+78:   E1 -> F2      Krol               
+
+79:   A8 -> A7     Wieza               
+
+80:   F2 -> G3      Krol               
+
+81:   A7 -> A8     Wieza               
+
+82:   A3 -> C4       Kon               
+
+83:   A8 -> A7     Wieza               
+
+84:   A2 -> A4      Pion           Podwojny
+
+85:   A7 -> A8     Wieza               
+
+86:   E3 -> C5     Goniec               
+
+87:   A8 -> A7     Wieza               
+
+88:   G3 -> G4      Krol               
+
+89:   A7 -> A8     Wieza               
+
+90:   H5 -> G5     Krolowa               
+
+91:   A8 -> A7     Wieza               
+
+92:   H2 -> H4      Pion           Podwojny
+
+93:   A7 -> A8     Wieza               
+
+94:   H4 -> H5      Pion               
+
+95:   A8 -> A7     Wieza               
+
+96:   B2 -> B3      Pion               
+
+97:   A7 -> A8     Wieza               
+
+98:   G4 -> G3      Krol               
+
+99:   A8 -> A7     Wieza               
+
+100:   E2 -> C3       Kon               
+
+101:   A7 -> A8     Wieza               
+
+102:   G3 -> F2      Krol               
+
+103:   A8 -> A7     Wieza               
+
+104:   E4 -> E5      Pion               
+
+105:   A7 -> A8     Wieza               
+
+106:   C3 -> D5       Kon               
+
+107:   A8 -> A7     Wieza               
+
+108:   F2 -> E2      Krol               
+
+109:   A7 -> A8     Wieza               
+
+110:   C2 -> C3      Pion               
+
+111:   A8 -> A7     Wieza               
+
+112:   E2 -> F2      Krol               
+
+113:   A7 -> A8     Wieza               
+
+114:   G2 -> G3      Pion               
+
+115:   A8 -> A7     Wieza               
+
+116:   F2 -> G2      Krol               
+
+117:   A7 -> A8     Wieza               
+
+118:   G2 -> F2      Krol               
+
+119:   A8 -> A7     Wieza               
+
+120:   F2 -> G2      Krol               
+
+121:   A7 -> A8     Wieza               
+
+122:   G2 -> F2      Krol               
+
+123:   A8 -> A7     Wieza               
+
+124:   F2 -> G2      Krol               
+
+125:   A7 -> A8     Wieza               
+
+126:   G2 -> F2      Krol               
+
+127:   A8 -> A7     Wieza               
+
+128:   F2 -> G2      Krol               
+
+129:   A7 -> A8     Wieza               
+
+130:   G2 -> F2      Krol               
+
+131:   A8 -> A7     Wieza               
+
+132:   F2 -> G2      Krol               
+
+133:   A7 -> A8     Wieza               
+
+134:   G2 -> F2      Krol               
+
+135:   A8 -> A7     Wieza               
+
+136:   F2 -> G2      Krol               
+
+137:   A7 -> A8     Wieza               
+
+138:   G2 -> F2      Krol               
+
+139:   A8 -> A7     Wieza               
+
+140:   F2 -> G2      Krol               
+
+141:   A7 -> A8     Wieza               
+
+142:   G2 -> F2      Krol               
+
+143:   A8 -> A7     Wieza               
+
+144:   F2 -> G2      Krol               
+
+145:   A7 -> A8     Wieza               
+
+146:   G2 -> F2      Krol               
+
+147:   A8 -> A7     Wieza               
+
+148:   F2 -> G2      Krol               
+
+149:   A7 -> A8     Wieza               
+
+150:   G2 -> F2      Krol               
+
+151:   A8 -> A7     Wieza               
+
+152:   F2 -> G2      Krol               
+
+153:   A7 -> A8     Wieza               
+
+154:   G2 -> F2      Krol               
+
+155:   A8 -> A7     Wieza               
+
+156:   F2 -> G2      Krol               
+
+157:   A7 -> A8     Wieza               
+
+158:   G2 -> F2      Krol               
+
+159:   A8 -> A7     Wieza               
+
+160:   F2 -> G2      Krol               
+
+161:   A7 -> A8     Wieza               
+
+162:   G2 -> F2      Krol               
+
+163:   A8 -> A7     Wieza               
+
+164:   F2 -> G2      Krol               
+
+165:   A7 -> A8     Wieza               
+
+166:   G2 -> F2      Krol               
+
+167:   A8 -> A7     Wieza               
+
+168:   F2 -> G2      Krol               
+
+169:   A7 -> A8     Wieza               
+
+170:   G2 -> F2      Krol               
+
+171:   A8 -> A7     Wieza               
+
+172:   F2 -> G2      Krol               
+
+173:   A7 -> A8     Wieza               
+
+174:   G2 -> F2      Krol               
+
+175:   A8 -> A7     Wieza               
+
+176:   F2 -> G2      Krol               
+
+177:   A7 -> A8     Wieza               
+
+178:   G2 -> F2      Krol               
+
+179:   A8 -> A7     Wieza               
+
+180:   F2 -> G2      Krol               
+
+181:   A7 -> A8     Wieza               
+
+182:   G2 -> F2      Krol               
+
+183:   A8 -> A7     Wieza               
+
+184:   F2 -> G2      Krol               
+
+185:   A7 -> A8     Wieza               
+
+186:   G2 -> F2      Krol               
+
+187:   A8 -> A7     Wieza               
+
+188:   F2 -> G2      Krol               
+
+189:   A7 -> A8     Wieza               
+
+190:   G2 -> F2      Krol               
+
+191:   A8 -> A7     Wieza               
+
+192:   F2 -> G2      Krol               
+
+193:   A7 -> A8     Wieza               
+
+194:   G2 -> F2      Krol               
+
+195:   A8 -> A7     Wieza               
+
+196:   F2 -> G2      Krol               
+
+197:   A7 -> A8     Wieza               
+
+198:   G2 -> F2      Krol               
+
+199:   A8 -> A7     Wieza               
+
+200:   F2 -> G2      Krol               
+
+201:   A7 -> A8     Wieza               
+
+202:   G2 -> F2      Krol               
+
+203:   A8 -> A7     Wieza               
+
+204:   F2 -> G2      Krol               
+
+205:   A7 -> A8     Wieza               
+
+206:   G2 -> F2      Krol               
+
+207:   A8 -> A7     Wieza               
+
+208:   F2 -> G2      Krol               
+
+209:   A7 -> A8     Wieza               
+
+210:   G2 -> F2      Krol               
+
+211:   A8 -> A7     Wieza               
+
+212:   F2 -> G2      Krol               
+
+213:   A7 -> A8     Wieza               
+
+214:   G2 -> F2      Krol               
+
+215:   A8 -> A7     Wieza               
+
+216:   F2 -> G2      Krol               
+
+217:   A7 -> A8     Wieza               
+
+218:   G2 -> F2      Krol               
+
+219:   A8 -> A7     Wieza               
+
+220:   F2 -> G2      Krol               
+
+221:   A7 -> A8     Wieza               
+
+222:   G2 -> F2      Krol               
+
+223:   A8 -> A7     Wieza               
+
+224:   F2 -> G2      Krol               
+
+225:   A7 -> A8     Wieza               
+
+226:   G2 -> F2      Krol               
+
+227:   A8 -> A7     Wieza               
+
+228:   F2 -> G2      Krol               
+
+229:   A7 -> A8     Wieza               
+
+230:   G2 -> F2      Krol               
+
+231:   A8 -> A7     Wieza               
+
+232:   F2 -> G2      Krol               
+
+233:   A7 -> A8     Wieza               
+
+234:   G2 -> F2      Krol               
+
+235:   A8 -> A7     Wieza               
+
+236:   F2 -> G2      Krol               
+
+237:   A7 -> A8     Wieza               
+
+238:   G2 -> F2      Krol               
+
+239:   A8 -> A7     Wieza               
+
+240:   F2 -> G2      Krol               
+
+241:   A7 -> A8     Wieza               
+
+242:   G2 -> F2      Krol               
+
+243:   A8 -> A7     Wieza               
+
+244:   F2 -> G2      Krol               
+
+245:   A7 -> A8     Wieza               
+
+246:   G2 -> F2      Krol               
+
+247:   A8 -> A7     Wieza               
+
+248:   F2 -> G2      Krol               
+
+249:   A7 -> A8     Wieza               
+
+250:   G2 -> F2      Krol               
+
+251:   A8 -> A7     Wieza               
+
+252:   F2 -> G2      Krol               
+
+253:   A7 -> A8     Wieza               
+
+254:   G2 -> F2      Krol               
+
+255:   A8 -> A7     Wieza               
+
+256:   F2 -> G2      Krol               
+
+257:   A7 -> A8     Wieza               
+
+258:   G2 -> F2      Krol               
+

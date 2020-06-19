@@ -4,7 +4,7 @@
 
 AI::AI(Plansza* _paPlansza, HandlerGry* _handlerGry, int _iKolor, int _iWartoscPlanszy, int _glebokoscPrzeszukiwania) : Bot(_paPlansza, _handlerGry, _iKolor, _iWartoscPlanszy, _glebokoscPrzeszukiwania) {
 	const size_t inputs_number = 13;
-	const size_t hidden_neurons_number = 32;
+	const size_t hidden_neurons_number = 64;
 	const size_t outputs_number = 1;
 
 	const vector<size_t> architecture = { inputs_number,hidden_neurons_number,outputs_number };
@@ -270,4 +270,19 @@ void AI::SzkolSiec(int _wybranyRuch) {
 	training_strategy.set_display(false);
 
 	OptimizationAlgorithm::Results results = training_strategy.perform_training();
+}
+
+void AI::ZapiszWagiDoPliku(string _nazwa) {
+	siecNeuronowa.save(_nazwa);
+	return;
+}
+
+void AI::WczytajWagiZPliku(string _nazwa) {
+	try { siecNeuronowa.load(_nazwa); 
+	}
+	catch(std::exception& e) {
+		cout << "Brak pliku z wagami o podanej nazwie.\n";
+		Sleep(1000);
+	}
+	return;
 }
